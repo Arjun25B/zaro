@@ -15,8 +15,7 @@ export interface PillarCard {
   title: string;
   subtitle: string;
   description: string;
-  metric: string;
-  metricLabel: string;
+  statusBadge: string;
   features: string[];
   link: string;
   linkText: string;
@@ -155,18 +154,20 @@ export interface PillarCard {
                     </p>
 
                     <!-- Features Grid -->
-                    <div class="grid grid-cols-2 gap-2 pt-1">
+                    <div class="grid grid-cols-2 gap-2.5 pt-2">
                       @for (feat of pillar.features; track feat) {
                         <div
                           [class]="
-                            'flex items-center gap-2 text-xs transition-colors duration-300 ' +
-                            (activeIndex() === i ? 'text-blue-100' : 'text-slate-700')
+                            'flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-medium transition-all duration-300 ' +
+                            (activeIndex() === i
+                              ? 'bg-white/10 border border-white/15 text-blue-50 shadow-sm'
+                              : 'bg-white border border-slate-200/90 text-slate-700 shadow-xs')
                           "
                         >
                           <span
                             [class]="
                               'w-1.5 h-1.5 rounded-full shrink-0 transition-colors duration-300 ' +
-                              (activeIndex() === i ? 'bg-[#00D2FF]' : 'bg-[#0070F3]')
+                              (activeIndex() === i ? 'bg-[#00D2FF] shadow-[0_0_8px_#00D2FF]' : 'bg-[#0070F3]')
                             "
                           ></span>
                           <span class="truncate">{{ feat }}</span>
@@ -178,40 +179,42 @@ export interface PillarCard {
                   <!-- Card Footer -->
                   <div
                     [class]="
-                      'pt-6 mt-6 border-t flex items-center justify-between transition-colors duration-300 ' +
+                      'pt-5 mt-6 border-t flex items-center justify-between transition-colors duration-300 ' +
                       (activeIndex() === i ? 'border-white/15' : 'border-slate-200/80')
                     "
                   >
-                    <div>
-                      <div
+                    <!-- Status Badge -->
+                    <div class="flex items-center">
+                      <span
                         [class]="
-                          'font-mono text-xl sm:text-2xl font-bold transition-colors duration-300 ' +
-                          (activeIndex() === i ? 'text-[#00D2FF]' : 'text-slate-900')
+                          'inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-medium transition-colors duration-300 ' +
+                          (activeIndex() === i
+                            ? 'bg-white/10 text-cyan-200 border border-cyan-400/30'
+                            : 'bg-slate-200/70 text-slate-700 border border-slate-300/80')
                         "
                       >
-                        {{ pillar.metric }}
-                      </div>
-                      <div
-                        [class]="
-                          'text-[10px] font-mono uppercase transition-colors duration-300 ' +
-                          (activeIndex() === i ? 'text-blue-200' : 'text-slate-500')
-                        "
-                      >
-                        {{ pillar.metricLabel }}
-                      </div>
+                        <span
+                          [class]="
+                            'w-1.5 h-1.5 rounded-full animate-pulse ' +
+                            (activeIndex() === i ? 'bg-[#00D2FF]' : 'bg-[#0070F3]')
+                          "
+                        ></span>
+                        <span>{{ pillar.statusBadge }}</span>
+                      </span>
                     </div>
 
+                    <!-- Direct Action Link / Button -->
                     <a
                       [href]="pillar.link"
                       [class]="
-                        'inline-flex items-center gap-2 text-xs sm:text-sm font-bold transition-colors duration-300 group ' +
+                        'inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-300 group ' +
                         (activeIndex() === i
-                          ? 'text-white hover:text-[#00D2FF]'
-                          : 'text-slate-800 hover:text-[#0070F3]')
+                          ? 'bg-white/15 hover:bg-white/25 text-white border border-white/30 shadow-sm'
+                          : 'bg-slate-900 hover:bg-[#0070F3] text-white shadow-sm')
                       "
                     >
                       <span>{{ pillar.linkText }}</span>
-                      <svg class="w-4 h-4 fill-none stroke-current stroke-2 transition-transform group-hover:translate-x-1" viewBox="0 0 24 24">
+                      <svg class="w-4 h-4 fill-none stroke-current stroke-2 transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 24 24">
                         <path d="M5 12h14M12 5l7 7-7 7" />
                       </svg>
                     </a>
@@ -265,8 +268,7 @@ export class BrandPillarsComponent implements AfterViewInit, OnDestroy {
       subtitle: 'Deterministic Intelligence Layer',
       description:
         'Custom private Large Language Models, domain-specific retrieval (RAG), and autonomous agent swarms engineered for high-stakes enterprise decisions without public data leak risks.',
-      metric: '99.4%',
-      metricLabel: 'RAG Semantic Accuracy',
+      statusBadge: 'Sovereign Enclave',
       features: [
         'Private LLM Topologies',
         'Autonomous Agent Swarms',
@@ -283,9 +285,8 @@ export class BrandPillarsComponent implements AfterViewInit, OnDestroy {
       title: 'ZARO Unified Cloud',
       subtitle: 'High-Throughput Operating Backbone',
       description:
-        'The sovereign cloud fabric that unifies ERP financial ledgers, operations, digital twins, and external APIs with guaranteed sub-10ms latency and 99.99% multi-region uptime.',
-      metric: '<10ms',
-      metricLabel: 'Mesh Message Latency',
+        'The sovereign cloud fabric that unifies ERP financial ledgers, operations, digital twins, and external APIs with enterprise guarantees and multi-region resilience.',
+      statusBadge: 'Carrier-Grade SLA',
       features: [
         'Multi-Cloud Kubernetes',
         'Unified GraphQL Gateway',
@@ -303,8 +304,7 @@ export class BrandPillarsComponent implements AfterViewInit, OnDestroy {
       subtitle: 'Air-Gapped Security Architecture',
       description:
         'Cryptographically enforced zero-trust network policies, role-based authorization, and automated compliance auditing for defense, aerospace, and banking institutions.',
-      metric: '100%',
-      metricLabel: 'Sovereign VPC Isolation',
+      statusBadge: 'Air-Gapped Zero-Trust',
       features: [
         'Mutual TLS (mTLS) Mesh',
         'Hardware Security Modules',
@@ -322,8 +322,7 @@ export class BrandPillarsComponent implements AfterViewInit, OnDestroy {
       subtitle: '3D Physics & Sensory Feeds',
       description:
         'Real-time physical asset mirrors, spatial IoT visualization, high-frequency telemetry overlays, and predictive physics simulations across 30+ domain verticals.',
-      metric: '60 FPS',
-      metricLabel: 'Spatial Telemetry Sync',
+      statusBadge: 'Live Stream Telemetry',
       features: [
         'Sensor Ingestion at Scale',
         'Spatial 3D Asset Models',

@@ -1,12 +1,13 @@
 import { TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
 import { App } from './app';
 
 describe('App', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [App],
-    })
-      .compileComponents();
+      providers: [provideRouter([])],
+    }).compileComponents();
   });
 
   it('should create the app', () => {
@@ -15,21 +16,11 @@ describe('App', () => {
     expect(app).toBeTruthy();
   });
 
-  it('should render the Corezan landing page', async () => {
+  it('should render header and router outlet', () => {
     const fixture = TestBed.createComponent(App);
-    await fixture.whenStable();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('AI-Powered');
     expect(compiled.querySelector('app-header')).toBeTruthy();
-    expect(compiled.querySelector('app-modules-grid')).toBeTruthy();
-  });
-
-  it('should render the connected ZARO hero graphic', async () => {
-    const fixture = TestBed.createComponent(App);
-    await fixture.whenStable();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.orbit-center img')?.getAttribute('src')).toBe('/zaro-logo.png');
-    expect(compiled.querySelectorAll('.orbit-node')).toHaveLength(4);
-    expect(compiled.querySelectorAll('.network-connectors line')).toHaveLength(4);
+    expect(compiled.querySelector('router-outlet')).toBeTruthy();
+    expect(compiled.querySelector('app-footer')).toBeTruthy();
   });
 });

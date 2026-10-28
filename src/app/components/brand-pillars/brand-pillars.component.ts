@@ -21,8 +21,6 @@ export interface PillarCard {
   link: string;
   linkText: string;
   icon: 'brain' | 'cloud' | 'shield' | 'layers';
-  accentColor: string;
-  badgeStyle: string;
 }
 
 @Component({
@@ -30,10 +28,10 @@ export interface PillarCard {
   standalone: true,
   imports: [CommonModule],
   template: `
-    <!-- Outer Scroll Track (350vh allows relaxed, natural scroll pacing) -->
+    <!-- Outer Scroll Track (Controls scroll pacing: 340vh) -->
     <div
       #scrollContainer
-      class="relative h-[350vh] bg-white"
+      class="relative h-[340vh] bg-white"
     >
       <!-- Sticky Viewport Locked to Screen while Scrolling Down -->
       <section
@@ -44,7 +42,7 @@ export interface PillarCard {
           <!-- Top Header -->
           <div class="flex items-end justify-between gap-4 pt-2">
             <div class="space-y-2 max-w-2xl">
-              <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-mono font-semibold tracking-wider bg-blue-50 text-[#0070F3] border border-blue-200/60">
+              <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-mono font-semibold tracking-wider bg-blue-50 text-[#0070F3] border border-blue-200/80">
                 <span class="w-2 h-2 rounded-full bg-[#0070F3]"></span>
                 <span>ARCHITECTURAL SYNERGY</span>
               </div>
@@ -74,27 +72,34 @@ export interface PillarCard {
               @for (pillar of pillars; track pillar.id; let i = $index) {
                 <div
                   [class]="
-                    'flex-shrink-0 w-[82vw] sm:w-[460px] lg:w-[500px] rounded-3xl p-7 sm:p-9 border bg-white flex flex-col justify-between relative transition-all duration-300 ' +
+                    'flex-shrink-0 w-[82vw] sm:w-[460px] lg:w-[500px] rounded-3xl p-7 sm:p-9 border flex flex-col justify-between relative transition-all duration-500 ease-out ' +
                     (activeIndex() === i
-                      ? 'border-[#0070F3] shadow-[0_8px_30px_rgba(0,112,243,0.12)] ring-1 ring-[#0070F3]/40 opacity-100'
-                      : 'border-slate-200/90 shadow-sm opacity-55 hover:opacity-80')
+                      ? 'bg-gradient-to-br from-[#071838] via-[#0A2D6E] to-[#0D3F99] text-white border-[#0070F3] shadow-[0_20px_50px_-10px_rgba(0,112,243,0.32)] ring-1 ring-[#00D2FF]/40 opacity-100 scale-100 z-20'
+                      : 'bg-slate-50/90 border-slate-200/90 text-slate-800 shadow-sm opacity-55 hover:opacity-75 scale-[0.96] z-10')
                   "
                 >
                   <!-- Card Header & Content -->
                   <div class="space-y-5">
                     <div class="flex items-center justify-between">
                       <span
-                        [class]="'text-xs font-mono font-semibold uppercase tracking-wider px-3 py-0.5 rounded-full ' + pillar.badgeStyle"
+                        [class]="
+                          'text-xs font-mono font-semibold uppercase tracking-wider px-3 py-0.5 rounded-full transition-colors duration-300 ' +
+                          (activeIndex() === i
+                            ? 'bg-[#00D2FF]/15 text-[#00D2FF] border border-[#00D2FF]/30'
+                            : 'bg-slate-200/70 text-slate-600 border border-slate-300')
+                        "
                       >
                         {{ pillar.tag }}
                       </span>
 
-                      <!-- Clean Minimal Monochrome / Subtle Accent Icon -->
+                      <!-- Pillar Icon -->
                       <div
-                        class="w-11 h-11 rounded-2xl flex items-center justify-center border"
-                        [style.backgroundColor]="activeIndex() === i ? pillar.accentColor + '10' : '#F8FAFC'"
-                        [style.borderColor]="activeIndex() === i ? pillar.accentColor + '30' : '#E2E8F0'"
-                        [style.color]="activeIndex() === i ? pillar.accentColor : '#64748B'"
+                        [class]="
+                          'w-11 h-11 rounded-2xl flex items-center justify-center border transition-all duration-300 ' +
+                          (activeIndex() === i
+                            ? 'bg-white/10 border-white/20 text-[#00D2FF]'
+                            : 'bg-white border-slate-200 text-slate-500')
+                        "
                       >
                         @if (pillar.icon === 'brain') {
                           <svg class="w-5 h-5 fill-none stroke-current stroke-2" viewBox="0 0 24 24">
@@ -122,25 +127,47 @@ export interface PillarCard {
                     </div>
 
                     <div>
-                      <h3 class="font-display text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">
+                      <h3
+                        [class]="
+                          'font-display text-2xl sm:text-3xl font-bold tracking-tight transition-colors duration-300 ' +
+                          (activeIndex() === i ? 'text-white' : 'text-slate-900')
+                        "
+                      >
                         {{ pillar.title }}
                       </h3>
-                      <div class="text-xs font-mono text-slate-500 mt-1 uppercase tracking-wide">
+                      <div
+                        [class]="
+                          'text-xs font-mono mt-1 uppercase tracking-wide transition-colors duration-300 ' +
+                          (activeIndex() === i ? 'text-[#00D2FF]' : 'text-slate-500')
+                        "
+                      >
                         {{ pillar.subtitle }}
                       </div>
                     </div>
 
-                    <p class="text-sm sm:text-base text-slate-600 leading-relaxed font-normal">
+                    <p
+                      [class]="
+                        'text-sm sm:text-base leading-relaxed font-normal transition-colors duration-300 ' +
+                        (activeIndex() === i ? 'text-blue-100/90' : 'text-slate-600')
+                      "
+                    >
                       {{ pillar.description }}
                     </p>
 
                     <!-- Features Grid -->
                     <div class="grid grid-cols-2 gap-2 pt-1">
                       @for (feat of pillar.features; track feat) {
-                        <div class="flex items-center gap-2 text-xs text-slate-700">
+                        <div
+                          [class]="
+                            'flex items-center gap-2 text-xs transition-colors duration-300 ' +
+                            (activeIndex() === i ? 'text-blue-100' : 'text-slate-700')
+                          "
+                        >
                           <span
-                            class="w-1.5 h-1.5 rounded-full shrink-0"
-                            [style.backgroundColor]="pillar.accentColor"
+                            [class]="
+                              'w-1.5 h-1.5 rounded-full shrink-0 transition-colors duration-300 ' +
+                              (activeIndex() === i ? 'bg-[#00D2FF]' : 'bg-[#0070F3]')
+                            "
                           ></span>
                           <span class="truncate">{{ feat }}</span>
                         </div>
@@ -149,22 +176,39 @@ export interface PillarCard {
                   </div>
 
                   <!-- Card Footer -->
-                  <div class="pt-6 mt-6 border-t border-slate-100 flex items-center justify-between">
+                  <div
+                    [class]="
+                      'pt-6 mt-6 border-t flex items-center justify-between transition-colors duration-300 ' +
+                      (activeIndex() === i ? 'border-white/15' : 'border-slate-200/80')
+                    "
+                  >
                     <div>
                       <div
-                        class="font-mono text-xl sm:text-2xl font-bold"
-                        [style.color]="pillar.accentColor"
+                        [class]="
+                          'font-mono text-xl sm:text-2xl font-bold transition-colors duration-300 ' +
+                          (activeIndex() === i ? 'text-[#00D2FF]' : 'text-slate-900')
+                        "
                       >
                         {{ pillar.metric }}
                       </div>
-                      <div class="text-[10px] font-mono text-slate-500 uppercase">
+                      <div
+                        [class]="
+                          'text-[10px] font-mono uppercase transition-colors duration-300 ' +
+                          (activeIndex() === i ? 'text-blue-200' : 'text-slate-500')
+                        "
+                      >
                         {{ pillar.metricLabel }}
                       </div>
                     </div>
 
                     <a
                       [href]="pillar.link"
-                      class="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-slate-800 hover:text-[#0070F3] transition-colors group"
+                      [class]="
+                        'inline-flex items-center gap-2 text-xs sm:text-sm font-bold transition-colors duration-300 group ' +
+                        (activeIndex() === i
+                          ? 'text-white hover:text-[#00D2FF]'
+                          : 'text-slate-800 hover:text-[#0070F3]')
+                      "
                     >
                       <span>{{ pillar.linkText }}</span>
                       <svg class="w-4 h-4 fill-none stroke-current stroke-2 transition-transform group-hover:translate-x-1" viewBox="0 0 24 24">
@@ -232,8 +276,6 @@ export class BrandPillarsComponent implements AfterViewInit, OnDestroy {
       link: '/#corezan',
       linkText: 'Explore AI Engine',
       icon: 'brain',
-      accentColor: '#0070F3',
-      badgeStyle: 'bg-blue-50 text-[#0070F3] border border-blue-200/80',
     },
     {
       id: 'cloud',
@@ -253,8 +295,6 @@ export class BrandPillarsComponent implements AfterViewInit, OnDestroy {
       link: '/#zaro',
       linkText: 'Explore Cloud Fabric',
       icon: 'cloud',
-      accentColor: '#0D9488',
-      badgeStyle: 'bg-teal-50 text-teal-700 border border-teal-200/80',
     },
     {
       id: 'security',
@@ -274,8 +314,6 @@ export class BrandPillarsComponent implements AfterViewInit, OnDestroy {
       link: '/#why',
       linkText: 'Inspect Security',
       icon: 'shield',
-      accentColor: '#4F46E5',
-      badgeStyle: 'bg-indigo-50 text-indigo-700 border border-indigo-200/80',
     },
     {
       id: 'twins',
@@ -295,15 +333,12 @@ export class BrandPillarsComponent implements AfterViewInit, OnDestroy {
       link: '/#zaro',
       linkText: 'Explore Spatial Twins',
       icon: 'layers',
-      accentColor: '#0284C7',
-      badgeStyle: 'bg-sky-50 text-sky-700 border border-sky-200/80',
     },
   ];
 
   constructor(private ngZone: NgZone) {}
 
   ngAfterViewInit() {
-    // Run scroll listener and animation loop completely outside NgZone for zero-overhead 60FPS
     this.ngZone.runOutsideAngular(() => {
       window.addEventListener('scroll', this.onScrollBound, { passive: true });
       window.addEventListener('resize', this.onResizeBound, { passive: true });
@@ -325,11 +360,9 @@ export class BrandPillarsComponent implements AfterViewInit, OnDestroy {
     const render = () => {
       if (this.isDestroyed) return;
 
-      // Smooth Lerp with damping factor 0.12 (silky kinetic glide)
       const diff = this.targetTranslateX - this.currentTranslateX;
       if (Math.abs(diff) > 0.05) {
         this.currentTranslateX += diff * 0.12;
-        // Mutate style directly on DOM outside Angular Zone for locked 60FPS
         if (this.trackContainer?.nativeElement) {
           this.trackContainer.nativeElement.style.transform = `translate3d(${-this.currentTranslateX}px, 0, 0)`;
         }
@@ -354,13 +387,9 @@ export class BrandPillarsComponent implements AfterViewInit, OnDestroy {
 
     if (maxScrollDistance <= 0) return;
 
-    // Progress 0 to 1
     const rawProgress = Math.max(0, Math.min(scrolledDistance / maxScrollDistance, 1));
-
-    // Dwell Buffer: 0 to 0.82 moves cards until card 4 is centered; 0.82 to 1.00 is stationary reading time
     const travelProgress = Math.min(1, rawProgress / 0.82);
 
-    // Calculate exact travel so card 4 is perfectly centered
     const lastCard = track.children[this.pillars.length - 1] as HTMLElement;
     let maxTranslate = 0;
 
@@ -375,7 +404,6 @@ export class BrandPillarsComponent implements AfterViewInit, OnDestroy {
 
     this.targetTranslateX = travelProgress * maxTranslate;
 
-    // Only re-enter Angular Zone when activeIndex changes
     const cardStep = 1 / this.pillars.length;
     const newIndex = Math.min(
       this.pillars.length - 1,

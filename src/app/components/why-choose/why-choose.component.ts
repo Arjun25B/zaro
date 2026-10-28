@@ -1,6 +1,16 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+export interface DeploymentSector {
+  id: string;
+  title: string;
+  tag: string;
+  icon: 'plane' | 'factory' | 'heart' | 'city' | 'truck' | 'more';
+  image?: string;
+  bgGradient: string;
+  isHubCard?: boolean;
+}
+
 @Component({
   selector: 'app-why-choose',
   standalone: true,
@@ -42,11 +52,11 @@ import { CommonModule } from '@angular/common';
 
             <div class="pt-4">
               <a
-                href="#contact"
-                class="inline-flex items-center gap-2 text-sm font-bold text-[#0070F3] hover:text-[#005BD0]"
+                href="/#contact"
+                class="inline-flex items-center gap-2 text-sm font-bold text-[#0070F3] hover:text-[#005BD0] group"
               >
                 <span>Read Enterprise Architecture Whitepaper</span>
-                <svg class="w-4 h-4 fill-none stroke-current stroke-2" viewBox="0 0 24 24">
+                <svg class="w-4 h-4 fill-none stroke-current stroke-2 transition-transform group-hover:translate-x-1" viewBox="0 0 24 24">
                   <path d="M5 12h14M12 5l7 7-7 7" />
                 </svg>
               </a>
@@ -67,14 +77,17 @@ import { CommonModule } from '@angular/common';
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 pt-2">
               @for (sector of deploymentSectors; track sector.title) {
                 @if (sector.isHubCard) {
+                  <!-- More Industries Hub Card -->
                   <a
-                    href="#industries"
-                    class="aspect-[4/3] rounded-xl bg-[#071838] border border-white/10 p-5 flex flex-col justify-between hover:border-[#00D2FF]/60 transition-all group shadow-md"
+                    href="/#industries"
+                    class="aspect-[4/3] rounded-xl bg-[#071838] border border-white/10 p-5 flex flex-col justify-between hover:border-[#00D2FF]/60 hover:bg-[#0B214A] transition-all group shadow-md"
                   >
                     <div class="w-9 h-9 rounded-lg bg-white/10 flex items-center justify-center text-[#00D2FF] group-hover:scale-110 transition-transform">
                       <svg class="w-5 h-5 fill-none stroke-current stroke-2" viewBox="0 0 24 24">
-                        <line x1="12" y1="5" x2="12" y2="19" />
-                        <line x1="5" y1="12" x2="19" y2="12" />
+                        <rect x="3" y="3" width="7" height="7" rx="1" />
+                        <rect x="14" y="3" width="7" height="7" rx="1" />
+                        <rect x="14" y="14" width="7" height="7" rx="1" />
+                        <rect x="3" y="14" width="7" height="7" rx="1" />
                       </svg>
                     </div>
 
@@ -91,32 +104,81 @@ import { CommonModule } from '@angular/common';
                     </div>
                   </a>
                 } @else {
-                  <div class="relative aspect-[4/3] rounded-xl overflow-hidden shadow-md group cursor-pointer">
-                    <img
-                      [src]="sector.image"
-                      [alt]="sector.title"
-                      class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                      loading="lazy"
-                    />
-                    <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/60 to-transparent"></div>
+                  <!-- Photography Deployment Card -->
+                  <a
+                    href="/#industries"
+                    class="relative aspect-[4/3] rounded-xl overflow-hidden shadow-md group cursor-pointer block border border-slate-200 hover:border-[#0070F3] hover:shadow-xl transition-all duration-300"
+                  >
+                    <!-- Fallback Background Gradient in case image is loading or blocked -->
+                    <div
+                      [class]="'absolute inset-0 bg-gradient-to-br ' + sector.bgGradient"
+                      aria-hidden="true"
+                    ></div>
 
+                    <!-- Image with no-referrer & async decoding -->
+                    @if (sector.image) {
+                      <img
+                        [src]="sector.image"
+                        [alt]="sector.title"
+                        loading="lazy"
+                        decoding="async"
+                        referrerpolicy="no-referrer"
+                        (error)="handleImageError($event)"
+                        class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                    }
+
+                    <!-- High-contrast Gradient Overlay for crisp text legibility -->
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-950/95 via-slate-950/45 to-transparent"></div>
+
+                    <!-- Card Content Overlay -->
                     <div class="relative z-10 h-full p-4 flex flex-col justify-between">
-                      <div class="w-8 h-8 rounded-lg bg-white/20 backdrop-blur-md flex items-center justify-center text-white">
-                        <svg class="w-4 h-4 fill-none stroke-current stroke-2" viewBox="0 0 24 24">
-                          <path d="M12 2v20M2 12h20" />
-                        </svg>
+                      <div class="w-8 h-8 rounded-lg bg-black/40 border border-white/20 backdrop-blur-md flex items-center justify-center text-white shadow-sm group-hover:border-[#00D2FF]/60 transition-colors">
+                        @if (sector.icon === 'plane') {
+                          <svg class="w-4 h-4 fill-none stroke-current stroke-2" viewBox="0 0 24 24">
+                            <path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z" />
+                          </svg>
+                        } @else if (sector.icon === 'factory') {
+                          <svg class="w-4 h-4 fill-none stroke-current stroke-2" viewBox="0 0 24 24">
+                            <path d="M2 20a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8l-7 5V8l-7 5V4H2z" />
+                          </svg>
+                        } @else if (sector.icon === 'heart') {
+                          <svg class="w-4 h-4 fill-none stroke-current stroke-2" viewBox="0 0 24 24">
+                            <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+                          </svg>
+                        } @else if (sector.icon === 'city') {
+                          <svg class="w-4 h-4 fill-none stroke-current stroke-2" viewBox="0 0 24 24">
+                            <path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z" />
+                            <path d="M6 12H4a2 2 0 0 0-2 2v8h4" />
+                            <path d="M18 9h2a2 2 0 0 1 2 2v11h-4" />
+                            <path d="M10 6h4" />
+                            <path d="M10 10h4" />
+                            <path d="M10 14h4" />
+                          </svg>
+                        } @else if (sector.icon === 'truck') {
+                          <svg class="w-4 h-4 fill-none stroke-current stroke-2" viewBox="0 0 24 24">
+                            <path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2" />
+                            <path d="M15 18H9" />
+                            <path d="M19 18h2a1 1 0 0 0 1-1v-5l-3-4h-5v10Z" />
+                            <circle cx="7" cy="18" r="2" />
+                            <circle cx="17" cy="18" r="2" />
+                          </svg>
+                        }
                       </div>
 
                       <div>
                         <span class="text-[10px] font-mono text-slate-300 uppercase tracking-wider block">
                           {{ sector.tag }}
                         </span>
-                        <h4 class="font-display text-sm font-bold text-white mt-0.5">
-                          {{ sector.title }}
+                        <h4 class="font-display text-sm font-bold text-white mt-0.5 flex items-center justify-between">
+                          <span>{{ sector.title }}</span>
+                          <svg class="w-3.5 h-3.5 text-[#00D2FF] opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all fill-none stroke-current stroke-2" viewBox="0 0 24 24">
+                            <path d="M5 12h14M12 5l7 7-7 7" />
+                          </svg>
                         </h4>
                       </div>
                     </div>
-                  </div>
+                  </a>
                 }
               }
             </div>
@@ -150,37 +212,63 @@ export class WhyChooseComponent {
     },
   ];
 
-  deploymentSectors = [
+  deploymentSectors: DeploymentSector[] = [
     {
+      id: 'aviation',
       title: 'Aviation & Aerospace',
       tag: 'Terminal Operations',
+      icon: 'plane',
+      bgGradient: 'from-sky-900 to-slate-900',
       image: 'https://images.unsplash.com/photo-1542296332-2e4473faf563?auto=format&fit=crop&w=600&q=80',
     },
     {
+      id: 'manufacturing',
       title: 'Advanced Manufacturing',
       tag: 'Industrial IoT',
+      icon: 'factory',
+      bgGradient: 'from-blue-900 to-slate-900',
       image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=600&q=80',
     },
     {
+      id: 'healthcare',
       title: 'Healthcare Networks',
       tag: 'Clinical Telemetry',
+      icon: 'heart',
+      bgGradient: 'from-teal-900 to-slate-900',
       image: 'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=600&q=80',
     },
     {
+      id: 'smart-cities',
       title: 'Smart Cities & Urban',
       tag: 'Grid Monitoring',
-      image: 'https://images.unsplash.com/photo-1477959858617-67f30bc75b82?auto=format&fit=crop&w=600&q=80',
+      icon: 'city',
+      bgGradient: 'from-blue-950 to-slate-900',
+      // High-resolution reliable smart city skyline
+      image: 'https://images.unsplash.com/photo-1519501025264-65ba15a82390?auto=format&fit=crop&w=600&q=80',
     },
     {
+      id: 'logistics',
       title: 'Logistics & Fleet',
       tag: 'Supply Chain',
+      icon: 'truck',
+      bgGradient: 'from-amber-950 to-slate-900',
       image: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=600&q=80',
     },
     {
+      id: 'more',
       title: 'Explore 25+ More',
       tag: 'Custom Verticals',
+      icon: 'more',
+      bgGradient: 'from-slate-900 to-brand-navy-card',
       isHubCard: true,
-      image: '',
     },
   ];
+
+  handleImageError(event: Event) {
+    const img = event.target as HTMLImageElement;
+    if (img) {
+      // Hide broken image so the rich fallback gradient and icon are displayed seamlessly
+      img.style.display = 'none';
+    }
+  }
 }

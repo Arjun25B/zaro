@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-footer',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   template: `
     <footer class="bg-[#030A19] text-slate-300 border-t border-[#122A54] pt-16 pb-12">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -71,7 +72,7 @@ import { CommonModule } from '@angular/common';
 
               <!-- Globe -->
               <a
-                href="#hero"
+                routerLink="/"
                 class="p-2.5 rounded-full bg-white/5 border border-white/10 text-slate-400 hover:text-white hover:bg-white/10 hover:border-[#00D2FF]/40 transition-all"
                 aria-label="Global Website"
               >
@@ -88,12 +89,13 @@ import { CommonModule } from '@angular/common';
           <div class="lg:col-span-2 space-y-4">
             <h4 class="font-display text-xs font-bold uppercase tracking-wider text-white">Navigation</h4>
             <ul class="space-y-2.5 text-sm">
-              <li><a href="#hero" class="hover:text-[#00D2FF] transition-colors">Overview</a></li>
-              <li><a href="#corezan" class="hover:text-[#00D2FF] transition-colors">Corezan AI Solutions</a></li>
-              <li><a href="#zaro" class="hover:text-[#00D2FF] transition-colors">ZARO Platform</a></li>
-              <li><a href="#industries" class="hover:text-[#00D2FF] transition-colors">Industry Directory</a></li>
-              <li><a href="#why" class="hover:text-[#00D2FF] transition-colors">Why Corezan & ZARO</a></li>
-              <li><a href="#contact" class="hover:text-[#00D2FF] transition-colors">Schedule Consultation</a></li>
+              <li><a routerLink="/" class="hover:text-[#00D2FF] transition-colors">Overview</a></li>
+              <li><a href="/#corezan" class="hover:text-[#00D2FF] transition-colors">Corezan AI Solutions</a></li>
+              <li><a href="/#zaro" class="hover:text-[#00D2FF] transition-colors">ZARO Platform</a></li>
+              <li><a href="/#industries" class="hover:text-[#00D2FF] transition-colors">Industry Directory</a></li>
+              <li><a href="/#why" class="hover:text-[#00D2FF] transition-colors">Why Corezan & ZARO</a></li>
+              <li><a routerLink="/careers" class="hover:text-[#00D2FF] transition-colors text-white font-medium">Careers <span class="text-[10px] ml-1 px-1.5 py-0.5 rounded bg-[#0070F3]/30 text-[#00D2FF]">We're Hiring</span></a></li>
+              <li><a href="/#contact" class="hover:text-[#00D2FF] transition-colors">Schedule Consultation</a></li>
             </ul>
           </div>
 
@@ -101,11 +103,11 @@ import { CommonModule } from '@angular/common';
           <div class="lg:col-span-3 space-y-4">
             <h4 class="font-display text-xs font-bold uppercase tracking-wider text-white">Platform Suite</h4>
             <ul class="space-y-2.5 text-sm">
-              <li><a href="#zaro" class="hover:text-[#00D2FF] transition-colors flex items-center justify-between">ZARO Business ERP ↗</a></li>
-              <li><a href="#zaro" class="hover:text-[#00D2FF] transition-colors flex items-center justify-between">ZARO Virtual World ↗</a></li>
-              <li><a href="#zaro" class="hover:text-[#00D2FF] transition-colors flex items-center justify-between">High-Throughput API Mesh ↗</a></li>
-              <li><a href="#corezan" class="hover:text-[#00D2FF] transition-colors flex items-center justify-between">Private LLM Infrastructure ↗</a></li>
-              <li><a href="#corezan" class="hover:text-[#00D2FF] transition-colors flex items-center justify-between">Cognitive Agent Swarms ↗</a></li>
+              <li><a href="/#zaro" class="hover:text-[#00D2FF] transition-colors flex items-center justify-between">ZARO Business ERP ↗</a></li>
+              <li><a href="/#zaro" class="hover:text-[#00D2FF] transition-colors flex items-center justify-between">ZARO Virtual World ↗</a></li>
+              <li><a href="/#zaro" class="hover:text-[#00D2FF] transition-colors flex items-center justify-between">High-Throughput API Mesh ↗</a></li>
+              <li><a href="/#corezan" class="hover:text-[#00D2FF] transition-colors flex items-center justify-between">Private LLM Infrastructure ↗</a></li>
+              <li><a href="/#corezan" class="hover:text-[#00D2FF] transition-colors flex items-center justify-between">Cognitive Agent Swarms ↗</a></li>
             </ul>
           </div>
 

@@ -67,10 +67,10 @@ import { RouterModule } from '@angular/router';
         <div class="flex items-center gap-3">
           <a
             href="/#contact"
-            class="hidden sm:inline-flex items-center gap-1.5 h-11 px-6 rounded-full bg-[#0070F3] hover:bg-[#005BD0] text-white text-xs font-semibold shadow-md shadow-[#0070F3]/25 transition-all duration-200"
+            class="hidden sm:inline-flex items-center gap-2 h-10 px-5 rounded-xl bg-[#0070F3] hover:bg-[#005BD0] text-white text-xs sm:text-sm font-semibold shadow-sm transition-all duration-200 group"
           >
             <span>Book Demo</span>
-            <svg class="w-3.5 h-3.5 fill-none stroke-current stroke-2" viewBox="0 0 24 24">
+            <svg class="w-3.5 h-3.5 fill-none stroke-current stroke-2 transition-transform duration-200 group-hover:translate-x-0.5" viewBox="0 0 24 24">
               <path d="M5 12h14M12 5l7 7-7 7" />
             </svg>
           </a>
@@ -158,7 +158,7 @@ import { RouterModule } from '@angular/router';
             <a
               href="/#contact"
               (click)="closeMobileNav()"
-              class="w-full h-12 flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#0070F3] to-[#00D2FF] text-white font-semibold text-sm shadow-lg shadow-[#0070F3]/25"
+              class="w-full h-11 flex items-center justify-center gap-2 rounded-xl bg-[#0070F3] hover:bg-[#005BD0] text-white font-semibold text-sm shadow-sm transition-all"
             >
               <span>Schedule Demo</span>
               <svg class="w-4 h-4 fill-none stroke-current stroke-2" viewBox="0 0 24 24">

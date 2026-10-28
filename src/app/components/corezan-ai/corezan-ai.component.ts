@@ -84,10 +84,10 @@ import { COREZAN_SERVICES, CorezanService } from '../../data/platform.data';
 
                   <a
                     href="#contact"
-                    class="w-full sm:w-auto h-11 px-6 rounded-full bg-gradient-to-r from-[#0070F3] to-[#00D2FF] text-white font-semibold text-sm inline-flex items-center justify-center gap-2 shadow-lg shadow-[#0070F3]/25 transition-all"
+                    class="w-full sm:w-auto h-11 px-6 rounded-xl bg-[#0070F3] hover:bg-[#005BD0] text-white font-semibold text-sm inline-flex items-center justify-center gap-2 shadow-sm transition-all group"
                   >
                     <span>Consult with AI Team</span>
-                    <svg class="w-4 h-4 fill-none stroke-current stroke-2" viewBox="0 0 24 24">
+                    <svg class="w-4 h-4 fill-none stroke-current stroke-2 transition-transform duration-200 group-hover:translate-x-1" viewBox="0 0 24 24">
                       <path d="M5 12h14M12 5l7 7-7 7" />
                     </svg>
                   </a>

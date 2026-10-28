@@ -49,22 +49,22 @@ import { CommonModule } from '@angular/common';
             </p>
 
             <!-- CTAs -->
-            <div class="pt-2 flex flex-wrap items-center gap-4">
+            <div class="pt-2 flex flex-wrap items-center gap-3.5">
               <a
                 href="#zaro"
-                class="inline-flex items-center justify-center font-semibold text-sm rounded-full h-13 px-8 bg-gradient-to-r from-[#0070F3] via-[#0091FF] to-[#00D2FF] text-white hover:opacity-95 shadow-lg shadow-[#0070F3]/25 group transition-all"
+                class="inline-flex items-center justify-center gap-2 font-semibold text-sm rounded-xl h-11 px-6 bg-[#0070F3] hover:bg-[#005BD0] text-white shadow-md shadow-[#0070F3]/25 transition-all group"
               >
                 <span>Explore ZARO Platform</span>
-                <svg class="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1 fill-none stroke-current stroke-2" viewBox="0 0 24 24">
+                <svg class="w-4 h-4 transition-transform group-hover:translate-x-1 fill-none stroke-current stroke-2" viewBox="0 0 24 24">
                   <path d="M5 12h14M12 5l7 7-7 7" />
                 </svg>
               </a>
 
               <a
                 href="#corezan"
-                class="inline-flex items-center justify-center font-semibold text-sm rounded-full h-13 px-8 border border-white/20 bg-transparent text-white hover:bg-white/10 hover:border-white/40 transition-all"
+                class="inline-flex items-center justify-center gap-2 font-semibold text-sm rounded-xl h-11 px-6 bg-white/10 hover:bg-white/15 text-white border border-white/15 hover:border-white/30 backdrop-blur-sm transition-all"
               >
-                Our AI Solutions
+                <span>Our AI Solutions</span>
               </a>
             </div>
 

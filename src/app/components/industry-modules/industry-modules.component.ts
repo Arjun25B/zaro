@@ -34,8 +34,8 @@ import {
                 (click)="setCategory(category)"
                 [class]="
                   activeCategory() === category
-                    ? 'px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide transition-all duration-200 bg-[#0070F3] text-white shadow-md shadow-[#0070F3]/25'
-                    : 'px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide transition-all duration-200 bg-white text-slate-600 border border-slate-200 hover:border-slate-300 hover:text-slate-900'
+                    ? 'px-3.5 py-1.5 rounded-lg text-xs font-semibold tracking-wide transition-all duration-200 bg-[#0070F3] text-white shadow-sm'
+                    : 'px-3.5 py-1.5 rounded-lg text-xs font-medium tracking-wide transition-all duration-200 bg-white text-slate-600 border border-slate-200 hover:border-slate-300 hover:text-slate-900'
                 "
               >
                 {{ category }}

@@ -103,7 +103,7 @@ import { FormsModule } from '@angular/forms';
                 <button
                   type="button"
                   (click)="resetForm()"
-                  class="mt-4 px-6 py-2.5 rounded-full border border-white/20 text-white hover:bg-white/10 text-sm font-semibold transition-all"
+                  class="mt-4 h-11 px-6 rounded-xl border border-white/20 bg-white/5 hover:bg-white/10 text-white text-sm font-semibold inline-flex items-center justify-center transition-all"
                 >
                   Send Another Inquiry
                 </button>
@@ -177,10 +177,10 @@ import { FormsModule } from '@angular/forms';
                 <button
                   type="submit"
                   [disabled]="isSubmitting()"
-                  class="w-full h-12 rounded-full bg-gradient-to-r from-[#0070F3] to-[#00D2FF] text-white font-semibold text-sm flex items-center justify-center gap-2 shadow-lg shadow-[#0070F3]/25 transition-all hover:opacity-95 disabled:opacity-50"
+                  class="w-full h-11 rounded-xl bg-[#0070F3] hover:bg-[#005BD0] text-white font-semibold text-sm flex items-center justify-center gap-2 shadow-md shadow-[#0070F3]/25 transition-all group disabled:opacity-50"
                 >
                   <span>{{ isSubmitting() ? 'Submitting...' : 'Schedule Technical Consultation' }}</span>
-                  <svg class="w-4 h-4 fill-none stroke-current stroke-2" viewBox="0 0 24 24">
+                  <svg class="w-4 h-4 fill-none stroke-current stroke-2 transition-transform duration-200 group-hover:translate-x-1" viewBox="0 0 24 24">
                     <path d="M5 12h14M12 5l7 7-7 7" />
                   </svg>
                 </button>

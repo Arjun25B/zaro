@@ -26,10 +26,10 @@ import { ZARO_PRODUCTS, ZaroProduct } from '../../data/platform.data';
           <div>
             <a
               href="#industries"
-              class="inline-flex items-center justify-center font-semibold text-xs rounded-full h-11 px-6 border border-white/20 text-white hover:border-[#00D2FF] font-mono uppercase tracking-wider transition-all"
+              class="inline-flex items-center justify-center gap-2 font-semibold text-xs rounded-xl h-10 px-5 bg-white/10 hover:bg-white/15 text-white border border-white/15 hover:border-white/30 backdrop-blur-sm font-mono uppercase tracking-wider transition-all group"
             >
               <span>View All 30+ Modules</span>
-              <svg class="w-3.5 h-3.5 ml-2 fill-none stroke-current stroke-2" viewBox="0 0 24 24">
+              <svg class="w-3.5 h-3.5 fill-none stroke-current stroke-2 transition-transform duration-200 group-hover:translate-x-1" viewBox="0 0 24 24">
                 <path d="M5 12h14M12 5l7 7-7 7" />
               </svg>
             </a>

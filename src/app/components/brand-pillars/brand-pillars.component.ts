@@ -207,7 +207,7 @@ export interface PillarCard {
                     <a
                       [href]="pillar.link"
                       [class]="
-                        'inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-300 group ' +
+                        'inline-flex items-center gap-2 h-10 px-4 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-300 group ' +
                         (activeIndex() === i
                           ? 'bg-white/15 hover:bg-white/25 text-white border border-white/30 shadow-sm'
                           : 'bg-slate-900 hover:bg-[#0070F3] text-white shadow-sm')

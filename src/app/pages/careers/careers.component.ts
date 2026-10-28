@@ -147,10 +147,10 @@ interface JobPosition {
                 <div class="flex-shrink-0">
                   <a
                     [href]="'mailto:careers@corezan.ai?subject=Application for ' + job.title"
-                    class="inline-flex items-center justify-center font-semibold text-xs rounded-full h-11 px-6 bg-[#0070F3] hover:bg-[#005BD0] text-white shadow-md shadow-[#0070F3]/25 transition-all"
+                    class="inline-flex items-center justify-center gap-2 font-semibold text-xs rounded-xl h-10 px-5 bg-[#0070F3] hover:bg-[#005BD0] text-white shadow-sm transition-all group"
                   >
                     <span>Apply for Role</span>
-                    <svg class="w-3.5 h-3.5 ml-2 fill-none stroke-current stroke-2" viewBox="0 0 24 24">
+                    <svg class="w-3.5 h-3.5 fill-none stroke-current stroke-2 transition-transform duration-200 group-hover:translate-x-0.5" viewBox="0 0 24 24">
                       <path d="M5 12h14M12 5l7 7-7 7" />
                     </svg>
                   </a>
@@ -177,10 +177,10 @@ interface JobPosition {
           <div class="pt-2">
             <a
               href="mailto:careers@corezan.ai?subject=General Application / Talent Inquiry"
-              class="inline-flex items-center justify-center font-semibold text-sm rounded-full h-11 px-8 bg-gradient-to-r from-[#0070F3] to-[#00D2FF] text-white shadow-lg shadow-[#0070F3]/25 hover:opacity-95 transition-all"
+              class="inline-flex items-center justify-center gap-2 font-semibold text-sm rounded-xl h-11 px-6 bg-[#0070F3] hover:bg-[#005BD0] text-white shadow-md shadow-[#0070F3]/25 hover:opacity-95 transition-all group"
             >
               <span>Email careers&#64;corezan.ai</span>
-              <svg class="w-4 h-4 ml-2 fill-none stroke-current stroke-2" viewBox="0 0 24 24">
+              <svg class="w-4 h-4 fill-none stroke-current stroke-2 transition-transform duration-200 group-hover:translate-x-1" viewBox="0 0 24 24">
                 <path d="M5 12h14M12 5l7 7-7 7" />
               </svg>
             </a>

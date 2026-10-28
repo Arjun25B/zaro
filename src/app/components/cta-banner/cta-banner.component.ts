@@ -29,10 +29,10 @@ import { CommonModule } from '@angular/common';
         <div class="flex-shrink-0">
           <a
             href="#contact"
-            class="h-13 px-8 rounded-full bg-gradient-to-r from-[#0070F3] to-[#00D2FF] text-white font-semibold text-base inline-flex items-center justify-center gap-2 shadow-xl shadow-[#0070F3]/20 transition-all hover:opacity-95"
+            class="h-11 px-6 rounded-xl bg-[#0070F3] hover:bg-[#005BD0] text-white font-semibold text-sm inline-flex items-center justify-center gap-2 shadow-md shadow-[#0070F3]/25 transition-all group"
           >
             <span>Get in Touch with Founders</span>
-            <svg class="w-4 h-4 fill-none stroke-current stroke-2" viewBox="0 0 24 24">
+            <svg class="w-4 h-4 fill-none stroke-current stroke-2 transition-transform duration-200 group-hover:translate-x-1" viewBox="0 0 24 24">
               <path d="M5 12h14M12 5l7 7-7 7" />
             </svg>
           </a>

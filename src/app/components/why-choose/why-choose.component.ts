@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ShapeGridComponent } from '../shape-grid/shape-grid.component';
 
 export interface DeploymentSector {
   id: string;
@@ -14,10 +15,28 @@ export interface DeploymentSector {
 @Component({
   selector: 'app-why-choose',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ShapeGridComponent],
   template: `
-    <section id="why" class="bg-white py-20 text-slate-900 border-t border-slate-200">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="why" class="relative bg-white py-20 text-slate-900 border-t border-slate-200 overflow-hidden">
+      <!-- Perspective ShapeGrid Interactive Canvas Background -->
+      <div class="absolute inset-0 pointer-events-none z-0">
+        <app-shape-grid
+          shape="square"
+          direction="right"
+          lineColor="rgba(42, 39, 52, 0.12)"
+          hoverColor="#0070F3"
+          hoverFillColor="#0070F3"
+          [fillOpacity]="0.12"
+          [cellSize]="48"
+          [speed]="0.35"
+          [tiltX]="0"
+          [tiltY]="-18"
+          [rainbow]="false"
+          [radius]="1.3"
+        />
+      </div>
+
+      <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-start">
           <!-- Left Column (5 cols): Value Proposition Checklist -->
           <div class="lg:col-span-5 space-y-6">

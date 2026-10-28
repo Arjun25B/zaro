@@ -1,6 +1,5 @@
 import { Component, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ShapeGridComponent } from '../shape-grid/shape-grid.component';
 import {
   CATEGORIES,
   CategoryFilter,
@@ -11,26 +10,11 @@ import {
 @Component({
   selector: 'app-industry-modules',
   standalone: true,
-  imports: [CommonModule, ShapeGridComponent],
+  imports: [CommonModule],
   template: `
     <section id="industries" class="relative bg-white py-20 text-slate-900 border-t border-slate-200 overflow-hidden">
-      <!-- Perspective ShapeGrid Interactive Canvas Background -->
-      <div class="absolute inset-0 pointer-events-none z-0">
-        <app-shape-grid
-          shape="square"
-          direction="right"
-          lineColor="rgba(42, 39, 52, 0.12)"
-          hoverColor="#0070F3"
-          hoverFillColor="#0070F3"
-          [fillOpacity]="0.12"
-          [cellSize]="48"
-          [speed]="0.35"
-          [tiltX]="0"
-          [tiltY]="-18"
-          [rainbow]="false"
-          [radius]="1.3"
-        />
-      </div>
+      <!-- Subtle Ambient Blue Tint to match site theme -->
+      <div class="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[350px] bg-gradient-to-b from-blue-50/60 via-sky-50/30 to-transparent blur-3xl opacity-80" aria-hidden="true"></div>
 
       <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- Section Header -->

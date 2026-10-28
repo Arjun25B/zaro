@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ShapeGridComponent } from '../shape-grid/shape-grid.component';
 
 @Component({
   selector: 'app-hero',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ShapeGridComponent],
   template: `
     <section
       id="hero"
@@ -12,13 +13,32 @@ import { CommonModule } from '@angular/common';
     >
       <!-- Ambient Radial Glow Orbs -->
       <div
-        class="pointer-events-none absolute top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[550px] rounded-full bg-[#0070F3]/15 blur-[130px] will-change-transform"
+        class="pointer-events-none absolute top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[550px] rounded-full bg-[#0070F3]/20 blur-[130px] will-change-transform"
         aria-hidden="true"
       ></div>
       <div
-        class="pointer-events-none absolute bottom-1/4 right-1/4 translate-x-1/3 translate-y-1/3 w-[600px] h-[600px] rounded-full bg-[#00D2FF]/10 blur-[140px] will-change-transform"
+        class="pointer-events-none absolute bottom-1/4 right-1/4 translate-x-1/3 translate-y-1/3 w-[600px] h-[600px] rounded-full bg-[#00D2FF]/15 blur-[140px] will-change-transform"
         aria-hidden="true"
       ></div>
+
+      <!-- Interactive Perspective ShapeGrid Canvas Background -->
+      <div class="absolute inset-0 z-0 pointer-events-none opacity-65">
+        <app-shape-grid
+          shape="square"
+          direction="right"
+          lineColor="rgba(0, 112, 243, 0.28)"
+          hoverColor="#00D2FF"
+          hoverFillColor="#0070F3"
+          [fillOpacity]="0.3"
+          [cellSize]="48"
+          [speed]="0.35"
+          [tiltX]="0"
+          [tiltY]="-18"
+          [rainbow]="false"
+          [radius]="1.4"
+          [glow]="0.45"
+        />
+      </div>
 
       <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full z-10">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">

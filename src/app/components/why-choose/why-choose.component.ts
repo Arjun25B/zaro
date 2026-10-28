@@ -17,22 +17,27 @@ export interface DeploymentSector {
   standalone: true,
   imports: [CommonModule, ShapeGridComponent],
   template: `
-    <section id="why" class="relative bg-white py-20 text-slate-900 border-t border-slate-200 overflow-hidden">
+    <section id="why" class="relative bg-gradient-to-b from-[#F3F8FF] via-white to-[#F0F6FF] py-20 text-slate-900 border-t border-slate-200 overflow-hidden">
+      <!-- Ambient Blue Glow Orbs to blend with blue theme -->
+      <div class="pointer-events-none absolute top-1/4 left-1/4 -translate-x-1/2 w-[500px] h-[500px] rounded-full bg-blue-100/50 blur-[120px]" aria-hidden="true"></div>
+      <div class="pointer-events-none absolute bottom-1/4 right-1/4 translate-x-1/3 w-[550px] h-[550px] rounded-full bg-sky-100/40 blur-[130px]" aria-hidden="true"></div>
+
       <!-- Perspective ShapeGrid Interactive Canvas Background -->
-      <div class="absolute inset-0 pointer-events-none z-0">
+      <div class="absolute inset-0 pointer-events-none z-0 opacity-80">
         <app-shape-grid
           shape="square"
           direction="right"
-          lineColor="rgba(42, 39, 52, 0.12)"
+          lineColor="rgba(0, 112, 243, 0.14)"
           hoverColor="#0070F3"
-          hoverFillColor="#0070F3"
-          [fillOpacity]="0.12"
+          hoverFillColor="#00D2FF"
+          [fillOpacity]="0.15"
           [cellSize]="48"
           [speed]="0.35"
           [tiltX]="0"
           [tiltY]="-18"
           [rainbow]="false"
           [radius]="1.3"
+          [glow]="0.35"
         />
       </div>
 

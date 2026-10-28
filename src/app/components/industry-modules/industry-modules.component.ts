@@ -12,7 +12,7 @@ import {
   standalone: true,
   imports: [CommonModule],
   template: `
-    <section id="industries" class="bg-slate-50/70 py-20 text-slate-900 border-t border-slate-200">
+    <section id="industries" class="bg-white py-20 text-slate-900 border-t border-slate-200">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- Section Header -->
         <div class="text-center max-w-3xl mx-auto mb-10">
@@ -35,7 +35,7 @@ import {
                 [class]="
                   activeCategory() === category
                     ? 'px-3.5 py-1.5 rounded-lg text-xs font-semibold tracking-wide transition-all duration-200 bg-[#0070F3] text-white shadow-sm'
-                    : 'px-3.5 py-1.5 rounded-lg text-xs font-medium tracking-wide transition-all duration-200 bg-white text-slate-600 border border-slate-200 hover:border-slate-300 hover:text-slate-900'
+                    : 'px-3.5 py-1.5 rounded-lg text-xs font-medium tracking-wide transition-all duration-200 bg-slate-100 text-slate-600 border border-slate-200/80 hover:bg-slate-200/70 hover:text-slate-900'
                 "
               >
                 {{ category }}
@@ -51,7 +51,7 @@ import {
         <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3.5">
           @for (module of filteredModules(); track module.id) {
             <div
-              class="bg-white rounded-xl p-4 border border-[#DCE5F0] hover:border-[#0070F3] hover:shadow-lg transition-all duration-200 flex flex-col justify-between group cursor-pointer"
+              class="bg-white rounded-xl p-4 border border-slate-200 hover:border-[#0070F3] hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 flex flex-col justify-between group cursor-pointer shadow-xs"
               [title]="module.description"
             >
               <div>
@@ -81,7 +81,7 @@ import {
           <!-- Plus Custom Domain Card -->
           <a
             href="#contact"
-            class="bg-gradient-to-br from-[#0070F3]/5 to-sky-500/10 rounded-xl p-4 border border-dashed border-[#0070F3]/40 hover:border-[#0070F3] hover:shadow-lg transition-all duration-200 flex flex-col justify-between group cursor-pointer"
+            class="bg-blue-50/40 rounded-xl p-4 border border-dashed border-[#0070F3]/30 hover:border-[#0070F3] hover:bg-blue-50/70 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 flex flex-col justify-between group cursor-pointer"
           >
             <div>
               <div class="p-2.5 rounded-lg bg-[#0070F3]/10 border border-[#0070F3]/20 w-fit mb-3 group-hover:scale-110 transition-transform">

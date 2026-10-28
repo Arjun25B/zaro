@@ -1,22 +1,33 @@
 import { Component } from '@angular/core';
-import { EcosystemSectionComponent } from './ecosystem-section.component';
-import { FooterComponent } from './footer.component';
-import { HeaderComponent } from './header.component';
-import { HeroComponent } from './hero.component';
-import { ModulesGridComponent } from './modules-grid.component';
-import { SolutionsGridComponent } from './solutions-grid.component';
+import { CommonModule } from '@angular/common';
+import { HeaderComponent } from './components/header/header.component';
+import { HeroComponent } from './components/hero/hero.component';
+import { BrandPillarsComponent } from './components/brand-pillars/brand-pillars.component';
+import { ZaroPlatformComponent } from './components/zaro-platform/zaro-platform.component';
+import { CorezanAiComponent } from './components/corezan-ai/corezan-ai.component';
+import { WhyChooseComponent } from './components/why-choose/why-choose.component';
+import { IndustryModulesComponent } from './components/industry-modules/industry-modules.component';
+import { CtaBannerComponent } from './components/cta-banner/cta-banner.component';
+import { ContactComponent } from './components/contact/contact.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 @Component({
+  selector: 'app-root',
+  standalone: true,
   imports: [
+    CommonModule,
     HeaderComponent,
     HeroComponent,
-    SolutionsGridComponent,
-    ModulesGridComponent,
-    EcosystemSectionComponent,
+    BrandPillarsComponent,
+    ZaroPlatformComponent,
+    CorezanAiComponent,
+    WhyChooseComponent,
+    IndustryModulesComponent,
+    CtaBannerComponent,
+    ContactComponent,
     FooterComponent,
   ],
-  selector: 'app-root',
-  styleUrl: './app.css',
   templateUrl: './app.html',
+  styleUrl: './app.css',
 })
 export class App {}

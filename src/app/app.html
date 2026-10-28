@@ -1,8 +1,34 @@
-<app-header />
-<main>
-  <app-hero />
-  <app-solutions-grid />
-  <app-modules-grid />
-  <app-ecosystem-section />
-</main>
-<app-footer />
+<div class="min-h-screen flex flex-col bg-[#051129] text-slate-100 font-sans selection:bg-[#0070F3] selection:text-white">
+  <!-- Sticky Header -->
+  <app-header />
+
+  <!-- Main Sections Flow -->
+  <main id="main-content" class="flex-grow">
+    <!-- 1. Hero Section (6+6 Asymmetric & Orbital SVG) -->
+    <app-hero />
+
+    <!-- 2. Brand Pillars Section (65/35 Asymmetric Grid) -->
+    <app-brand-pillars />
+
+    <!-- 3. ZARO Platform Overview (2x2 Slate-Indigo & Tint Grids) -->
+    <app-zaro-platform />
+
+    <!-- 4. Corezan AI Solutions (1 + 2x2 Featured Architecture) -->
+    <app-corezan-ai />
+
+    <!-- 5. Why Choose Section (5+7 Split & Deployments) -->
+    <app-why-choose />
+
+    <!-- 6. Industry Modules Directory (Signals Category Filter + 30 Tiles) -->
+    <app-industry-modules />
+
+    <!-- 7. CTA Banner Section (Anchored to #contact) -->
+    <app-cta-banner />
+
+    <!-- 8. Dedicated Contact Section (5+7 Channels & Glass Form) -->
+    <app-contact />
+  </main>
+
+  <!-- 9. Enterprise 12-Column Footer -->
+  <app-footer />
+</div>

@@ -17,27 +17,33 @@ export interface DeploymentSector {
   standalone: true,
   imports: [CommonModule, ShapeGridComponent],
   template: `
-    <section id="why" class="relative bg-gradient-to-b from-[#F3F8FF] via-white to-[#F0F6FF] py-20 text-slate-900 border-t border-slate-200 overflow-hidden">
-      <!-- Ambient Blue Glow Orbs to blend with blue theme -->
-      <div class="pointer-events-none absolute top-1/4 left-1/4 -translate-x-1/2 w-[500px] h-[500px] rounded-full bg-blue-100/50 blur-[120px]" aria-hidden="true"></div>
-      <div class="pointer-events-none absolute bottom-1/4 right-1/4 translate-x-1/3 w-[550px] h-[550px] rounded-full bg-sky-100/40 blur-[130px]" aria-hidden="true"></div>
+    <section id="why" class="relative bg-[#051129] py-20 text-white border-t border-white/10 overflow-hidden">
+      <!-- Ambient Radial Glow Orbs like Hero Section -->
+      <div
+        class="pointer-events-none absolute top-1/4 left-1/4 -translate-x-1/2 w-[550px] h-[550px] rounded-full bg-[#0070F3]/15 blur-[130px] will-change-transform"
+        aria-hidden="true"
+      ></div>
+      <div
+        class="pointer-events-none absolute bottom-1/4 right-1/4 translate-x-1/3 w-[600px] h-[600px] rounded-full bg-[#00D2FF]/10 blur-[140px] will-change-transform"
+        aria-hidden="true"
+      ></div>
 
-      <!-- Perspective ShapeGrid Interactive Canvas Background -->
-      <div class="absolute inset-0 pointer-events-none z-0 opacity-80">
+      <!-- Perspective ShapeGrid Interactive Canvas Background (Low Opacity & Hero Palette) -->
+      <div class="absolute inset-0 pointer-events-none z-0 opacity-25">
         <app-shape-grid
           shape="square"
           direction="right"
-          lineColor="rgba(0, 112, 243, 0.14)"
-          hoverColor="#0070F3"
-          hoverFillColor="#00D2FF"
-          [fillOpacity]="0.15"
+          lineColor="rgba(0, 112, 243, 0.28)"
+          hoverColor="#00D2FF"
+          hoverFillColor="#0070F3"
+          [fillOpacity]="0.3"
           [cellSize]="48"
           [speed]="0.35"
           [tiltX]="0"
           [tiltY]="-18"
           [rainbow]="false"
-          [radius]="1.3"
-          [glow]="0.35"
+          [radius]="1.4"
+          [glow]="0.4"
         />
       </div>
 
@@ -46,13 +52,13 @@ export interface DeploymentSector {
           <!-- Left Column (5 cols): Value Proposition Checklist -->
           <div class="lg:col-span-5 space-y-6">
             <div>
-              <span class="text-xs font-mono font-bold uppercase tracking-widest text-[#0070F3]">
+              <span class="text-xs font-mono font-bold uppercase tracking-widest text-[#00D2FF]">
                 WHY COREZAN & ZARO
               </span>
-              <h2 class="font-display text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 mt-2">
+              <h2 class="font-display text-3xl sm:text-4xl font-extrabold tracking-tight text-white mt-2">
                 From Fragmented Systems to Connected Operations
               </h2>
-              <p class="mt-3 text-slate-600 text-sm sm:text-base leading-relaxed">
+              <p class="mt-3 text-slate-300 text-sm sm:text-base leading-relaxed">
                 Most modern enterprises struggle with disjointed software stacks, siloed departments, and untrusted public AI tools. We provide the unified architecture that fixes it.
               </p>
             </div>
@@ -60,15 +66,15 @@ export interface DeploymentSector {
             <div class="space-y-4 pt-2">
               @for (item of valueProps; track item.title) {
                 <div class="flex items-start gap-3.5 group">
-                  <div class="mt-1 flex-shrink-0 w-6 h-6 rounded-full bg-[#0070F3]/10 border border-[#0070F3]/30 flex items-center justify-center text-[#0070F3] group-hover:bg-[#0070F3] group-hover:text-white transition-colors">
+                  <div class="mt-1 flex-shrink-0 w-6 h-6 rounded-full bg-[#0070F3]/20 border border-[#0070F3]/40 flex items-center justify-center text-[#00D2FF] group-hover:bg-[#0070F3] group-hover:text-white transition-colors">
                     <svg class="w-4 h-4 fill-none stroke-current stroke-2" viewBox="0 0 24 24">
                       <circle cx="12" cy="12" r="10" />
                       <path d="m9 12 2 2 4-4" />
                     </svg>
                   </div>
                   <div>
-                    <h3 class="text-sm font-bold text-slate-900">{{ item.title }}</h3>
-                    <p class="text-xs text-slate-600 leading-relaxed mt-0.5">{{ item.desc }}</p>
+                    <h3 class="text-sm font-bold text-white">{{ item.title }}</h3>
+                    <p class="text-xs text-slate-400 leading-relaxed mt-0.5">{{ item.desc }}</p>
                   </div>
                 </div>
               }
@@ -77,7 +83,7 @@ export interface DeploymentSector {
             <div class="pt-4">
               <a
                 href="/#contact"
-                class="inline-flex items-center gap-2 text-sm font-bold text-[#0070F3] hover:text-[#005BD0] group"
+                class="inline-flex items-center gap-2 text-sm font-bold text-[#00D2FF] hover:text-white transition-colors group"
               >
                 <span>Read Enterprise Architecture Whitepaper</span>
                 <svg class="w-4 h-4 fill-none stroke-current stroke-2 transition-transform group-hover:translate-x-1" viewBox="0 0 24 24">
@@ -90,10 +96,10 @@ export interface DeploymentSector {
           <!-- Right Column (7 cols): 2x3 Photo Deployment Grid -->
           <div class="lg:col-span-7 space-y-4">
             <div>
-              <span class="text-xs font-mono font-bold uppercase tracking-widest text-slate-500">
+              <span class="text-xs font-mono font-bold uppercase tracking-widest text-slate-400">
                 FEATURED DEPLOYMENTS
               </span>
-              <h3 class="font-display text-2xl font-bold text-slate-900 mt-1">
+              <h3 class="font-display text-2xl font-bold text-white mt-1">
                 One Platform. Multiple Mission-Critical Industries.
               </h3>
             </div>
@@ -131,7 +137,7 @@ export interface DeploymentSector {
                   <!-- Photography Deployment Card -->
                   <a
                     href="/#industries"
-                    class="relative aspect-[4/3] rounded-xl overflow-hidden shadow-md group cursor-pointer block border border-slate-200 hover:border-[#0070F3] hover:shadow-xl transition-all duration-300"
+                    class="relative aspect-[4/3] rounded-xl overflow-hidden shadow-md group cursor-pointer block border border-white/10 hover:border-[#00D2FF] hover:shadow-2xl transition-all duration-300"
                   >
                     <!-- Fallback Background Gradient in case image is loading or blocked -->
                     <div

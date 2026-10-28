@@ -6,6 +6,7 @@ import {
   computed,
   HostListener,
   AfterViewInit,
+  OnDestroy,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -32,17 +33,17 @@ export interface PillarCard {
   standalone: true,
   imports: [CommonModule],
   template: `
-    <!-- Outer Scroll Container (Controls the scroll duration: 320vh height) -->
+    <!-- Outer Scroll Container (360vh height allows deep smooth scroll dwell) -->
     <div
       #scrollContainer
-      class="relative h-[320vh] bg-[#051129]"
+      class="relative h-[360vh] bg-[#051129]"
     >
       <!-- Sticky Viewport Locked to Screen while Scrolling Down -->
       <section
         id="pillars"
         class="sticky top-0 h-screen w-full flex flex-col justify-center overflow-hidden transition-colors duration-700 ease-out select-none"
       >
-        <!-- Dynamic Ambient Radial Tint that changes as cards scroll past -->
+        <!-- Dynamic Ambient Radial Tint that changes smoothly as cards scroll past -->
         <div
           class="pointer-events-none absolute inset-0 transition-all duration-700 ease-out"
           [style.background]="currentRadialTint()"
@@ -61,9 +62,9 @@ export interface PillarCard {
           aria-hidden="true"
         ></div>
 
-        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex flex-col justify-between py-6 h-full max-h-[92vh]">
-          <!-- Header (Fixed top zone in the sticky viewport) -->
-          <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pt-4">
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex flex-col justify-between py-8 h-full max-h-[90vh]">
+          <!-- Header (Clean top zone - removed 'scroll down to explore' pill) -->
+          <div class="flex items-end justify-between gap-4 pt-2">
             <div class="space-y-2 max-w-2xl">
               <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-mono font-semibold tracking-wider bg-white/10 text-[#00D2FF] border border-white/15 backdrop-blur-md">
                 <span class="relative flex h-2 w-2">
@@ -75,42 +76,31 @@ export interface PillarCard {
 
               <h2 class="font-display text-2xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
                 Four Connected Foundations.
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-200 to-slate-400">
+                <span class="block text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-200 to-slate-400">
                   Zero Operational Friction.
                 </span>
               </h2>
             </div>
 
-            <!-- Scroll Progress Indicator -->
-            <div class="flex items-center gap-4">
-              <!-- Scroll Wheel Animation Hint -->
-              <div class="hidden md:flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-slate-300">
-                <div class="w-3.5 h-5 rounded-full border border-slate-400 flex items-start justify-center p-0.5">
-                  <div class="w-1 h-1.5 rounded-full bg-[#00D2FF] animate-bounce"></div>
-                </div>
-                <span>Scroll down to explore</span>
-              </div>
-
-              <!-- Counter -->
-              <div class="px-4 py-1.5 rounded-full bg-white/5 border border-white/10 font-mono text-xs text-slate-300 font-semibold tracking-widest">
-                <span class="text-[#00D2FF] font-bold">0{{ activeIndex() + 1 }}</span>
-                <span class="opacity-40 mx-1">/</span>
-                <span>0{{ pillars.length }}</span>
-              </div>
+            <!-- Segmented Counter Pill -->
+            <div class="px-4 py-2 rounded-full bg-white/5 border border-white/10 font-mono text-xs text-slate-300 font-semibold tracking-widest shrink-0">
+              <span class="text-[#00D2FF] font-bold">0{{ activeIndex() + 1 }}</span>
+              <span class="opacity-40 mx-1">/</span>
+              <span>0{{ pillars.length }}</span>
             </div>
           </div>
 
-          <!-- Horizontal Cards Stage (Transforms smoothly on vertical scroll) -->
+          <!-- Horizontal Cards Stage (Smooth 60fps Lerp translation) -->
           <div class="relative my-auto overflow-visible py-4">
             <div
               #trackContainer
-              class="flex items-stretch gap-6 sm:gap-8 will-change-transform transition-transform duration-75 ease-out"
+              class="flex items-stretch gap-6 sm:gap-8 will-change-transform"
               [style.transform]="'translate3d(' + -translateX() + 'px, 0, 0)'"
             >
               @for (pillar of pillars; track pillar.id; let i = $index) {
                 <div
                   [class]="
-                    'flex-shrink-0 w-[84vw] sm:w-[480px] lg:w-[540px] rounded-3xl p-7 sm:p-9 border transition-all duration-500 ease-out flex flex-col justify-between relative overflow-hidden backdrop-blur-xl ' +
+                    'flex-shrink-0 w-[82vw] sm:w-[460px] lg:w-[500px] rounded-3xl p-7 sm:p-9 border transition-all duration-500 ease-out flex flex-col justify-between relative overflow-hidden backdrop-blur-xl ' +
                     (activeIndex() === i
                       ? 'scale-100 opacity-100 shadow-2xl z-20 ' + pillar.cardBorder
                       : 'scale-[0.93] opacity-40 hover:opacity-75 z-10 border-white/10 bg-[#071838]/60')
@@ -224,40 +214,42 @@ export interface PillarCard {
                   </div>
                 </div>
               }
+
+              <!-- Trailing padding spacer to guarantee 4th card has breathing room -->
+              <div class="flex-shrink-0 w-24 sm:w-48 lg:w-64" aria-hidden="true"></div>
             </div>
           </div>
 
-          <!-- Bottom Continuous Progress Bar & Status -->
-          <div class="w-full pb-2 space-y-2">
-            <div class="flex items-center justify-between text-xs font-mono text-slate-400">
-              <span class="flex items-center gap-2">
-                <span class="w-2 h-2 rounded-full" [style.backgroundColor]="currentGlowColor()"></span>
-                <span class="text-white font-semibold">{{ currentPillarTitle() }}</span>
-              </span>
-              <span>{{ scrollProgressPercent() }}% Scrolled</span>
-            </div>
-
-            <!-- Dynamic Progress Track -->
-            <div class="w-full h-1.5 bg-white/10 rounded-full overflow-hidden">
+          <!-- Bottom Minimal Active Indicator Dots -->
+          <div class="flex items-center justify-center gap-2.5 pb-2">
+            @for (pillar of pillars; track pillar.id; let i = $index) {
               <div
-                class="h-full rounded-full transition-all duration-75 ease-out"
-                [style.width]="scrollProgressPercent() + '%'"
-                [style.backgroundColor]="currentGlowColor()"
+                [class]="
+                  'h-2 rounded-full transition-all duration-300 ' +
+                  (activeIndex() === i
+                    ? 'w-8 bg-[#00D2FF] shadow-[0_0_12px_rgba(0,210,255,0.7)]'
+                    : 'w-2 bg-white/20')
+                "
               ></div>
-            </div>
+            }
           </div>
         </div>
       </section>
     </div>
   `,
 })
-export class BrandPillarsComponent implements AfterViewInit {
+export class BrandPillarsComponent implements AfterViewInit, OnDestroy {
   @ViewChild('scrollContainer') scrollContainer!: ElementRef<HTMLDivElement>;
   @ViewChild('trackContainer') trackContainer!: ElementRef<HTMLDivElement>;
 
   activeIndex = signal<number>(0);
   translateX = signal<number>(0);
-  scrollProgress = signal<number>(0);
+
+  // 60FPS Lerp Physics State
+  private targetTranslateX = 0;
+  private currentTranslateX = 0;
+  private animationFrameId: number | null = null;
+  private isDestroyed = false;
 
   pillars: PillarCard[] = [
     {
@@ -364,30 +356,46 @@ export class BrandPillarsComponent implements AfterViewInit {
     return this.pillars[idx]?.ambientGradient || '';
   });
 
-  currentPillarTitle = computed(() => {
-    const idx = this.activeIndex();
-    return this.pillars[idx]?.title || '';
-  });
-
-  scrollProgressPercent = computed(() => {
-    return Math.round(this.scrollProgress() * 100);
-  });
-
   ngAfterViewInit() {
-    this.calculateScrollProgress();
+    this.startLerpLoop();
+    this.updateTarget();
+  }
+
+  ngOnDestroy() {
+    this.isDestroyed = true;
+    if (this.animationFrameId) {
+      cancelAnimationFrame(this.animationFrameId);
+    }
   }
 
   @HostListener('window:scroll')
   onWindowScroll() {
-    requestAnimationFrame(() => this.calculateScrollProgress());
+    this.updateTarget();
   }
 
   @HostListener('window:resize')
   onWindowResize() {
-    this.calculateScrollProgress();
+    this.updateTarget();
   }
 
-  calculateScrollProgress() {
+  private startLerpLoop() {
+    const render = () => {
+      if (this.isDestroyed) return;
+
+      // 60FPS - 120FPS smooth Lerp (Linear Interpolation) with damping factor 0.14
+      const diff = this.targetTranslateX - this.currentTranslateX;
+      if (Math.abs(diff) > 0.05) {
+        this.currentTranslateX += diff * 0.14;
+        this.translateX.set(Math.round(this.currentTranslateX * 100) / 100);
+      }
+
+      this.animationFrameId = requestAnimationFrame(render);
+    };
+
+    this.animationFrameId = requestAnimationFrame(render);
+  }
+
+  private updateTarget() {
     if (!this.scrollContainer?.nativeElement || !this.trackContainer?.nativeElement) return;
 
     const container = this.scrollContainer.nativeElement;
@@ -395,31 +403,41 @@ export class BrandPillarsComponent implements AfterViewInit {
     const rect = container.getBoundingClientRect();
     const windowHeight = window.innerHeight;
 
-    // How far we have scrolled into this pinned container
+    // How far user has scrolled into pinned container
     const scrolledDistance = -rect.top;
     const maxScrollDistance = rect.height - windowHeight;
 
     if (maxScrollDistance <= 0) return;
 
-    // Clamp progress between 0 and 1
-    const rawProgress = scrolledDistance / maxScrollDistance;
-    const progress = Math.max(0, Math.min(rawProgress, 1));
-    this.scrollProgress.set(progress);
+    // Clamp progress 0 to 1
+    const rawProgress = Math.max(0, Math.min(scrolledDistance / maxScrollDistance, 1));
 
-    // Calculate maximum horizontal travel distance
-    // (Total track width minus visible container width plus end padding)
-    const containerWidth = container.clientWidth;
-    const trackWidth = track.scrollWidth;
-    const maxTranslate = Math.max(0, trackWidth - containerWidth + 64);
+    // Dwell Buffer:
+    // 0 to 0.80 translates cards until card 4 is fully centered and visible.
+    // 0.80 to 1.00 is dwell reading time so card 4 does not abruptly vanish!
+    const travelProgress = Math.min(1, rawProgress / 0.82);
 
-    // Drive horizontal translation smoothly from vertical scroll progress
-    this.translateX.set(progress * maxTranslate);
+    // Calculate maximum travel distance so the 4th card is perfectly centered
+    const lastCard = track.children[this.pillars.length - 1] as HTMLElement;
+    let maxTranslate = 0;
 
-    // Calculate active card index (0, 1, 2, or 3)
+    if (lastCard) {
+      const containerWidth = container.clientWidth;
+      const cardWidth = lastCard.offsetWidth;
+      // Centering offset: where last card should stop so it's centered
+      const centerOffset = Math.max(0, (containerWidth - cardWidth) / 2);
+      maxTranslate = Math.max(0, lastCard.offsetLeft - centerOffset);
+    } else {
+      maxTranslate = Math.max(0, track.scrollWidth - container.clientWidth);
+    }
+
+    this.targetTranslateX = travelProgress * maxTranslate;
+
+    // Calculate active index based on travel progress
     const cardStep = 1 / this.pillars.length;
     const calculatedIndex = Math.min(
       this.pillars.length - 1,
-      Math.floor(progress / cardStep)
+      Math.floor(travelProgress / cardStep + 0.1)
     );
 
     if (calculatedIndex !== this.activeIndex()) {

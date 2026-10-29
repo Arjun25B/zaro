@@ -27,12 +27,12 @@ export interface PillarCard {
   standalone: true,
   imports: [CommonModule],
   template: `
-    <!-- Outer Scroll Track (Calibrated to 220vh for seamless pacing without trailing dead space) -->
+    <!-- Outer Scroll Track: Paced for velvety smooth 60fps card reveal -->
     <div
       #scrollContainer
-      class="relative h-[220vh] bg-white"
+      class="relative h-[250vh] bg-white"
     >
-      <!-- Sticky Viewport: Pins cleanly while user scrolls vertically -->
+      <!-- Sticky Viewport: Locks cleanly to viewport while user scrolls vertically -->
       <section
         id="pillars"
         class="sticky top-0 h-screen w-full flex flex-col justify-center overflow-hidden bg-white border-t border-b border-slate-200 select-none"
@@ -54,7 +54,7 @@ export interface PillarCard {
               </h2>
             </div>
 
-            <!-- Segmented Counter Pill -->
+            <!-- Minimal Segmented Counter Pill -->
             <div class="px-4 py-2 rounded-full bg-slate-100 border border-slate-200 font-mono text-xs text-slate-600 font-semibold tracking-widest shrink-0">
               <span class="text-[#0070F3] font-bold">0{{ activeIndex() + 1 }}</span>
               <span class="opacity-40 mx-1">/</span>
@@ -62,7 +62,7 @@ export interface PillarCard {
             </div>
           </div>
 
-          <!-- Horizontal Cards Track: Driven smoothly by vertical page scroll -->
+          <!-- Horizontal Cards Track: Driven smoothly by vertical page scroll (GPU Composited) -->
           <div class="relative my-auto overflow-visible py-4">
             <div
               #trackContainer
@@ -71,33 +71,28 @@ export interface PillarCard {
               @for (pillar of pillars; track pillar.id; let i = $index) {
                 <div
                   [class]="
-                    'flex-shrink-0 w-[82vw] sm:w-[460px] lg:w-[490px] rounded-3xl p-7 sm:p-9 border flex flex-col justify-between relative overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ' +
+                    'flex-shrink-0 w-[82vw] sm:w-[460px] lg:w-[490px] rounded-3xl p-7 sm:p-9 border flex flex-col justify-between relative overflow-hidden transition-[transform,opacity,border-color,box-shadow] duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] will-change-transform ' +
                     (activeIndex() === i
-                      ? 'text-white border-[#0070F3] shadow-[0_20px_50px_-10px_rgba(0,112,243,0.32)] ring-1 ring-[#00D2FF]/40 opacity-100 scale-100 z-20'
-                      : 'border-slate-200/90 text-slate-800 shadow-sm opacity-55 hover:opacity-75 scale-[0.96] z-10')
+                      ? 'bg-[#071838] border-[#0070F3] shadow-[0_24px_60px_-12px_rgba(0,112,243,0.38)] ring-1 ring-[#00D2FF]/50 opacity-100 scale-100 z-20'
+                      : 'bg-[#071838]/90 border-[#1E3765]/70 shadow-lg opacity-45 scale-[0.95] z-10')
                   "
                 >
-                  <!-- Dual Background Layers for Silky Smooth 700ms Opacity Cross-Fade -->
+                  <!-- Active Shimmer Ambient Glow Gradient (Soft Opacity Cross-Fade, No Eye Strain) -->
                   <div
-                    class="absolute inset-0 bg-slate-50/95 transition-opacity duration-700 ease-out pointer-events-none"
-                    [class.opacity-100]="activeIndex() !== i"
-                    [class.opacity-0]="activeIndex() === i"
-                  ></div>
-                  <div
-                    class="absolute inset-0 bg-gradient-to-br from-[#071838] via-[#0A2D6E] to-[#0D3F99] transition-opacity duration-700 ease-out pointer-events-none"
+                    class="absolute inset-0 bg-gradient-to-br from-[#0A2D6E]/30 via-transparent to-[#0070F3]/20 transition-opacity duration-700 ease-out pointer-events-none"
                     [class.opacity-100]="activeIndex() === i"
                     [class.opacity-0]="activeIndex() !== i"
                   ></div>
 
-                  <!-- Card Header & Content -->
+                  <!-- Card Header & Content: Harmonious White & Cyan Text with Zero Flashing -->
                   <div class="relative z-10 space-y-5">
                     <div class="flex items-center justify-between">
                       <span
                         [class]="
                           'text-xs font-mono font-semibold uppercase tracking-wider px-3 py-0.5 rounded-full transition-colors duration-700 ' +
                           (activeIndex() === i
-                            ? 'bg-[#00D2FF]/15 text-[#00D2FF] border border-[#00D2FF]/30'
-                            : 'bg-slate-200/70 text-slate-600 border border-slate-300')
+                            ? 'bg-[#00D2FF]/20 text-[#00D2FF] border border-[#00D2FF]/40'
+                            : 'bg-white/10 text-slate-300 border border-white/10')
                         "
                       >
                         {{ pillar.tag }}
@@ -108,8 +103,8 @@ export interface PillarCard {
                         [class]="
                           'w-11 h-11 rounded-2xl flex items-center justify-center border transition-all duration-700 ' +
                           (activeIndex() === i
-                            ? 'bg-white/10 border-white/20 text-[#00D2FF]'
-                            : 'bg-white border-slate-200 text-slate-500')
+                            ? 'bg-[#0070F3]/20 border-[#0070F3]/50 text-[#00D2FF] shadow-sm'
+                            : 'bg-white/5 border-white/10 text-slate-400')
                         "
                       >
                         @if (pillar.icon === 'brain') {
@@ -137,40 +132,25 @@ export interface PillarCard {
                     </div>
 
                     <div>
-                      <h3
-                        [class]="
-                          'font-display text-2xl sm:text-3xl font-bold tracking-tight transition-colors duration-700 ' +
-                          (activeIndex() === i ? 'text-white' : 'text-slate-900')
-                        "
-                      >
+                      <h3 class="font-display text-2xl sm:text-3xl font-bold tracking-tight text-white">
                         {{ pillar.title }}
                       </h3>
                       <div
                         [class]="
                           'text-xs font-mono mt-1 uppercase tracking-wide transition-colors duration-700 ' +
-                          (activeIndex() === i ? 'text-cyan-300' : 'text-[#0070F3] font-semibold')
+                          (activeIndex() === i ? 'text-[#00D2FF] font-semibold' : 'text-slate-400')
                         "
                       >
                         {{ pillar.subtitle }}
                       </div>
                     </div>
 
-                    <p
-                      [class]="
-                        'text-sm leading-relaxed transition-colors duration-700 ' +
-                        (activeIndex() === i ? 'text-slate-200' : 'text-slate-600')
-                      "
-                    >
+                    <p class="text-sm leading-relaxed text-slate-300">
                       {{ pillar.description }}
                     </p>
 
                     <!-- 4 Architecture Features Checklist -->
-                    <div
-                      [class]="
-                        'pt-4 border-t transition-colors duration-700 grid grid-cols-1 sm:grid-cols-2 gap-2 ' +
-                        (activeIndex() === i ? 'border-white/10' : 'border-slate-200')
-                      "
-                    >
+                    <div class="pt-4 border-t border-white/10 grid grid-cols-1 sm:grid-cols-2 gap-2">
                       @for (feat of pillar.features; track feat) {
                         <div class="flex items-center gap-2">
                           <span
@@ -178,17 +158,12 @@ export interface PillarCard {
                               'w-4 h-4 rounded-full flex items-center justify-center text-[10px] font-bold shrink-0 transition-colors duration-700 ' +
                               (activeIndex() === i
                                 ? 'bg-[#00D2FF]/20 text-[#00D2FF]'
-                                : 'bg-blue-100 text-[#0070F3]')
+                                : 'bg-white/10 text-slate-400')
                             "
                           >
                             ✓
                           </span>
-                          <span
-                            [class]="
-                              'text-xs font-medium transition-colors duration-700 ' +
-                              (activeIndex() === i ? 'text-slate-200' : 'text-slate-700')
-                            "
-                          >
+                          <span class="text-xs font-medium text-slate-300">
                             {{ feat }}
                           </span>
                         </div>
@@ -202,14 +177,14 @@ export interface PillarCard {
                       [class]="
                         'inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-medium transition-colors duration-700 ' +
                         (activeIndex() === i
-                          ? 'bg-white/10 text-cyan-200 border border-cyan-400/30'
-                          : 'bg-slate-200/70 text-slate-700 border border-slate-300/80')
+                          ? 'bg-[#0070F3]/20 text-[#00D2FF] border border-[#0070F3]/40'
+                          : 'bg-white/5 text-slate-400 border border-white/10')
                       "
                     >
                       <span
                         [class]="
-                          'w-1.5 h-1.5 rounded-full animate-pulse ' +
-                          (activeIndex() === i ? 'bg-[#00D2FF]' : 'bg-[#0070F3]')
+                          'w-1.5 h-1.5 rounded-full ' +
+                          (activeIndex() === i ? 'bg-[#00D2FF] animate-pulse' : 'bg-slate-400')
                         "
                       ></span>
                       <span>{{ pillar.statusBadge }}</span>
@@ -221,8 +196,8 @@ export interface PillarCard {
                       [class]="
                         'inline-flex items-center gap-2 h-10 px-4 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-700 group ' +
                         (activeIndex() === i
-                          ? 'bg-white/15 hover:bg-white/25 text-white border border-white/30 shadow-sm'
-                          : 'bg-slate-900 hover:bg-[#0070F3] text-white shadow-sm')
+                          ? 'bg-[#0070F3] hover:bg-[#005BD0] text-white shadow-md shadow-[#0070F3]/25'
+                          : 'bg-white/10 hover:bg-white/20 text-slate-300 hover:text-white border border-white/10')
                       "
                     >
                       <span>{{ pillar.linkText }}</span>
@@ -234,7 +209,7 @@ export interface PillarCard {
                 </div>
               }
 
-              <!-- Trailing padding spacer to ensure Card 4 is centered comfortably -->
+              <!-- Trailing padding spacer to ensure Card 4 centers comfortably -->
               <div class="flex-shrink-0 w-16 sm:w-32 lg:w-48" aria-hidden="true"></div>
             </div>
           </div>
@@ -244,9 +219,9 @@ export interface PillarCard {
             @for (pillar of pillars; track pillar.id; let i = $index) {
               <div
                 [class]="
-                  'h-1.5 rounded-full transition-all duration-300 ' +
+                  'h-1.5 rounded-full transition-all duration-500 ' +
                   (activeIndex() === i
-                    ? 'w-7 bg-[#0070F3]'
+                    ? 'w-8 bg-[#0070F3]'
                     : 'w-2 bg-slate-300')
                 "
               ></div>
@@ -373,17 +348,26 @@ export class BrandPillarsComponent implements AfterViewInit, OnDestroy {
       if (this.isDestroyed) return;
 
       const diff = this.targetTranslateX - this.currentTranslateX;
+      // Velvety smooth inertia damping factor (0.08) for eye comfort and true 60fps
       if (Math.abs(diff) > 0.05) {
-        this.currentTranslateX += diff * 0.10;
+        this.currentTranslateX += diff * 0.08;
 
         if (this.maxTranslate > 0) {
           const visualProgress = Math.max(0, Math.min(1, this.currentTranslateX / this.maxTranslate));
-          const newIndex = Math.min(
-            this.pillars.length - 1,
-            Math.max(0, Math.round(visualProgress * (this.pillars.length - 1)))
-          );
+          // Continuous switch with hysteresis deadband to prevent flickering
+          const rawIdx = visualProgress * (this.pillars.length - 1);
+          const currentIdx = this.activeIndex();
+          let newIndex = currentIdx;
 
-          if (newIndex !== this.activeIndex()) {
+          if (rawIdx > currentIdx + 0.55 && currentIdx < this.pillars.length - 1) {
+            newIndex = currentIdx + 1;
+          } else if (rawIdx < currentIdx - 0.55 && currentIdx > 0) {
+            newIndex = currentIdx - 1;
+          } else if (Math.abs(rawIdx - Math.round(rawIdx)) < 0.2) {
+            newIndex = Math.min(this.pillars.length - 1, Math.max(0, Math.round(rawIdx)));
+          }
+
+          if (newIndex !== currentIdx) {
             this.ngZone.run(() => {
               this.activeIndex.set(newIndex);
             });

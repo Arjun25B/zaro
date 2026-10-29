@@ -1,6 +1,6 @@
-import { Component, signal, HostListener, effect } from '@angular/core';
+import { Component, signal, HostListener, effect, inject, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -18,7 +18,7 @@ import { RouterModule } from '@angular/router';
     <!-- Sticky Navigation Header -->
     <header
       [class]="
-        isScrolled()
+        isSolidNav()
           ? 'fixed top-0 left-0 right-0 z-50 h-[72px] bg-[#071838]/95 backdrop-blur-md border-b border-[#1E3765]/60 shadow-lg shadow-black/20 transition-all duration-300'
           : 'fixed top-0 left-0 right-0 z-50 h-[72px] bg-transparent border-b border-white/5 transition-all duration-300'
       "
@@ -202,8 +202,18 @@ import { RouterModule } from '@angular/router';
   `,
 })
 export class HeaderComponent {
+  private router = inject(Router);
+
   isScrolled = signal(false);
   mobileNavOpen = signal(false);
+  currentUrl = signal(this.router.url);
+
+  isHome = computed(() => {
+    const url = this.currentUrl();
+    return url === '/' || url.startsWith('/#') || url === '';
+  });
+
+  isSolidNav = computed(() => this.isScrolled() || !this.isHome());
 
   navLinks = [
     { name: 'Home', route: ['/'], fragment: undefined },
@@ -216,6 +226,12 @@ export class HeaderComponent {
   ];
 
   constructor() {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.currentUrl.set(event.urlAfterRedirects);
+      }
+    });
+
     // Lock body scrolling when mobile menu is open
     effect(() => {
       if (typeof document !== 'undefined') {

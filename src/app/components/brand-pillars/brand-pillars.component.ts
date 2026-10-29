@@ -71,18 +71,30 @@ export interface PillarCard {
               @for (pillar of pillars; track pillar.id; let i = $index) {
                 <div
                   [class]="
-                    'flex-shrink-0 w-[82vw] sm:w-[460px] lg:w-[500px] rounded-3xl p-7 sm:p-9 border flex flex-col justify-between relative transition-all duration-500 ease-out ' +
+                    'flex-shrink-0 w-[82vw] sm:w-[460px] lg:w-[500px] rounded-3xl p-7 sm:p-9 border flex flex-col justify-between relative overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ' +
                     (activeIndex() === i
-                      ? 'bg-gradient-to-br from-[#071838] via-[#0A2D6E] to-[#0D3F99] text-white border-[#0070F3] shadow-[0_20px_50px_-10px_rgba(0,112,243,0.32)] ring-1 ring-[#00D2FF]/40 opacity-100 scale-100 z-20'
-                      : 'bg-slate-50/90 border-slate-200/90 text-slate-800 shadow-sm opacity-55 hover:opacity-75 scale-[0.96] z-10')
+                      ? 'text-white border-[#0070F3] shadow-[0_20px_50px_-10px_rgba(0,112,243,0.32)] ring-1 ring-[#00D2FF]/40 opacity-100 scale-100 z-20'
+                      : 'border-slate-200/90 text-slate-800 shadow-sm opacity-60 hover:opacity-80 scale-[0.96] z-10')
                   "
                 >
+                  <!-- Background Layers for Silky Smooth 700ms Opacity Cross-Fade -->
+                  <div
+                    class="absolute inset-0 bg-slate-50/95 transition-opacity duration-700 ease-out pointer-events-none"
+                    [class.opacity-100]="activeIndex() !== i"
+                    [class.opacity-0]="activeIndex() === i"
+                  ></div>
+                  <div
+                    class="absolute inset-0 bg-gradient-to-br from-[#071838] via-[#0A2D6E] to-[#0D3F99] transition-opacity duration-700 ease-out pointer-events-none"
+                    [class.opacity-100]="activeIndex() === i"
+                    [class.opacity-0]="activeIndex() !== i"
+                  ></div>
+
                   <!-- Card Header & Content -->
-                  <div class="space-y-5">
+                  <div class="relative z-10 space-y-5">
                     <div class="flex items-center justify-between">
                       <span
                         [class]="
-                          'text-xs font-mono font-semibold uppercase tracking-wider px-3 py-0.5 rounded-full transition-colors duration-300 ' +
+                          'text-xs font-mono font-semibold uppercase tracking-wider px-3 py-0.5 rounded-full transition-colors duration-700 ' +
                           (activeIndex() === i
                             ? 'bg-[#00D2FF]/15 text-[#00D2FF] border border-[#00D2FF]/30'
                             : 'bg-slate-200/70 text-slate-600 border border-slate-300')
@@ -94,7 +106,7 @@ export interface PillarCard {
                       <!-- Pillar Icon -->
                       <div
                         [class]="
-                          'w-11 h-11 rounded-2xl flex items-center justify-center border transition-all duration-300 ' +
+                          'w-11 h-11 rounded-2xl flex items-center justify-center border transition-all duration-700 ' +
                           (activeIndex() === i
                             ? 'bg-white/10 border-white/20 text-[#00D2FF]'
                             : 'bg-white border-slate-200 text-slate-500')
@@ -128,7 +140,7 @@ export interface PillarCard {
                     <div>
                       <h3
                         [class]="
-                          'font-display text-2xl sm:text-3xl font-bold tracking-tight transition-colors duration-300 ' +
+                          'font-display text-2xl sm:text-3xl font-bold tracking-tight transition-colors duration-700 ' +
                           (activeIndex() === i ? 'text-white' : 'text-slate-900')
                         "
                       >
@@ -136,7 +148,7 @@ export interface PillarCard {
                       </h3>
                       <div
                         [class]="
-                          'text-xs font-mono mt-1 uppercase tracking-wide transition-colors duration-300 ' +
+                          'text-xs font-mono mt-1 uppercase tracking-wide transition-colors duration-700 ' +
                           (activeIndex() === i ? 'text-[#00D2FF]' : 'text-slate-500')
                         "
                       >
@@ -146,7 +158,7 @@ export interface PillarCard {
 
                     <p
                       [class]="
-                        'text-sm sm:text-base leading-relaxed font-normal transition-colors duration-300 ' +
+                        'text-sm sm:text-base leading-relaxed font-normal transition-colors duration-700 ' +
                         (activeIndex() === i ? 'text-blue-100/90' : 'text-slate-600')
                       "
                     >
@@ -158,7 +170,7 @@ export interface PillarCard {
                       @for (feat of pillar.features; track feat) {
                         <div
                           [class]="
-                            'flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-medium transition-all duration-300 ' +
+                            'flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-medium transition-all duration-700 ' +
                             (activeIndex() === i
                               ? 'bg-white/10 border border-white/15 text-blue-50 shadow-sm'
                               : 'bg-white border border-slate-200/90 text-slate-700 shadow-xs')
@@ -166,7 +178,7 @@ export interface PillarCard {
                         >
                           <span
                             [class]="
-                              'w-1.5 h-1.5 rounded-full shrink-0 transition-colors duration-300 ' +
+                              'w-1.5 h-1.5 rounded-full shrink-0 transition-colors duration-700 ' +
                               (activeIndex() === i ? 'bg-[#00D2FF] shadow-[0_0_8px_#00D2FF]' : 'bg-[#0070F3]')
                             "
                           ></span>
@@ -179,7 +191,7 @@ export interface PillarCard {
                   <!-- Card Footer -->
                   <div
                     [class]="
-                      'pt-5 mt-6 border-t flex items-center justify-between transition-colors duration-300 ' +
+                      'relative z-10 pt-5 mt-6 border-t flex items-center justify-between transition-colors duration-700 ' +
                       (activeIndex() === i ? 'border-white/15' : 'border-slate-200/80')
                     "
                   >
@@ -187,7 +199,7 @@ export interface PillarCard {
                     <div class="flex items-center">
                       <span
                         [class]="
-                          'inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-medium transition-colors duration-300 ' +
+                          'inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-medium transition-colors duration-700 ' +
                           (activeIndex() === i
                             ? 'bg-white/10 text-cyan-200 border border-cyan-400/30'
                             : 'bg-slate-200/70 text-slate-700 border border-slate-300/80')
@@ -207,7 +219,7 @@ export interface PillarCard {
                     <a
                       [href]="pillar.link"
                       [class]="
-                        'inline-flex items-center gap-2 h-10 px-4 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-300 group ' +
+                        'inline-flex items-center gap-2 h-10 px-4 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-700 group ' +
                         (activeIndex() === i
                           ? 'bg-white/15 hover:bg-white/25 text-white border border-white/30 shadow-sm'
                           : 'bg-slate-900 hover:bg-[#0070F3] text-white shadow-sm')
@@ -254,6 +266,7 @@ export class BrandPillarsComponent implements AfterViewInit, OnDestroy {
   // High-performance 60FPS Lerp state (executed completely outside Angular Zone)
   private targetTranslateX = 0;
   private currentTranslateX = 0;
+  private maxTranslate = 0;
   private animationFrameId: number | null = null;
   private isDestroyed = false;
 
@@ -361,7 +374,22 @@ export class BrandPillarsComponent implements AfterViewInit, OnDestroy {
 
       const diff = this.targetTranslateX - this.currentTranslateX;
       if (Math.abs(diff) > 0.05) {
-        this.currentTranslateX += diff * 0.12;
+        this.currentTranslateX += diff * 0.085;
+
+
+        if (this.maxTranslate > 0) {
+          const visualProgress = Math.max(0, Math.min(1, this.currentTranslateX / this.maxTranslate));
+          const newIndex = Math.min(
+            this.pillars.length - 1,
+            Math.max(0, Math.round(visualProgress * (this.pillars.length - 1)))
+          );
+
+          if (newIndex !== this.activeIndex()) {
+            this.ngZone.run(() => {
+              this.activeIndex.set(newIndex);
+            });
+          }
+        }
         if (this.trackContainer?.nativeElement) {
           this.trackContainer.nativeElement.style.transform = `translate3d(${-this.currentTranslateX}px, 0, 0)`;
         }
@@ -390,29 +418,17 @@ export class BrandPillarsComponent implements AfterViewInit, OnDestroy {
     const travelProgress = Math.min(1, rawProgress / 0.82);
 
     const lastCard = track.children[this.pillars.length - 1] as HTMLElement;
-    let maxTranslate = 0;
+    this.maxTranslate = 0;
 
     if (lastCard) {
       const containerWidth = container.clientWidth;
       const cardWidth = lastCard.offsetWidth;
       const centerOffset = Math.max(0, (containerWidth - cardWidth) / 2);
-      maxTranslate = Math.max(0, lastCard.offsetLeft - centerOffset);
+      this.maxTranslate = Math.max(0, lastCard.offsetLeft - centerOffset);
     } else {
-      maxTranslate = Math.max(0, track.scrollWidth - container.clientWidth);
+      this.maxTranslate = Math.max(0, track.scrollWidth - container.clientWidth);
     }
 
-    this.targetTranslateX = travelProgress * maxTranslate;
-
-    const cardStep = 1 / this.pillars.length;
-    const newIndex = Math.min(
-      this.pillars.length - 1,
-      Math.floor(travelProgress / cardStep + 0.1)
-    );
-
-    if (newIndex !== this.activeIndex()) {
-      this.ngZone.run(() => {
-        this.activeIndex.set(newIndex);
-      });
-    }
+    this.targetTranslateX = travelProgress * this.maxTranslate;
   }
 }

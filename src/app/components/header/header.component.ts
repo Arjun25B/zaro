@@ -25,17 +25,17 @@ import { RouterModule } from '@angular/router';
     >
       <div class="max-w-7xl mx-auto h-full px-4 sm:px-6 lg:px-8 flex items-center justify-between">
         <!-- Dual Brand Logo Lockup -->
-        <a routerLink="/" class="flex items-center gap-3 sm:gap-4 group" aria-label="Corezan & ZARO Enterprise Platform">
+        <a routerLink="/" class="flex items-center gap-3 sm:gap-4" aria-label="Corezan & ZARO Enterprise Platform">
           <img
             src="/corezan-logo.png"
             alt="Corezan AI"
-            class="h-9 sm:h-10 w-auto object-contain transition-transform group-hover:scale-105"
+            class="h-9 sm:h-10 w-auto object-contain"
           />
           <div class="h-6 w-[1px] bg-white/20 sm:h-7" aria-hidden="true"></div>
           <img
             src="/zaro-logo.png"
             alt="ZARO Cloud"
-            class="h-8 sm:h-9 w-auto object-contain transition-transform group-hover:scale-105"
+            class="h-8 sm:h-9 w-auto object-contain"
           />
         </a>
 

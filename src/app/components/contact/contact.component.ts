@@ -127,7 +127,7 @@ import { FormsModule } from '@angular/forms';
                     <input
                       required
                       name="name"
-                      placeholder="e.g. Elena Rostova"
+                      placeholder="Your full name"
                       [(ngModel)]="form.name"
                       class="flex h-12 w-full rounded-xl border border-white/15 bg-[#030A19]/70 px-4 py-2 text-sm text-white placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00D2FF] transition-all"
                     />
@@ -139,7 +139,7 @@ import { FormsModule } from '@angular/forms';
                     </label>
                     <input
                       name="company"
-                      placeholder="e.g. Apex Logistics Ltd"
+                      placeholder="Company name"
                       [(ngModel)]="form.company"
                       class="flex h-12 w-full rounded-xl border border-white/15 bg-[#030A19]/70 px-4 py-2 text-sm text-white placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00D2FF] transition-all"
                     />
@@ -154,7 +154,7 @@ import { FormsModule } from '@angular/forms';
                     required
                     type="email"
                     name="email"
-                    placeholder="name@enterprise.com"
+                    placeholder="you@company.com"
                     [(ngModel)]="form.email"
                     class="flex h-12 w-full rounded-xl border border-white/15 bg-[#030A19]/70 px-4 py-2 text-sm text-white placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00D2FF] transition-all"
                   />
@@ -168,7 +168,7 @@ import { FormsModule } from '@angular/forms';
                     required
                     name="message"
                     rows="4"
-                    placeholder="Briefly describe your systems, expected concurrency, or target industry module..."
+                    placeholder="Tell us about your project, goals, or requirements..."
                     [(ngModel)]="form.message"
                     class="flex min-h-[120px] w-full rounded-xl border border-white/15 bg-[#030A19]/70 px-4 py-3 text-sm text-white placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00D2FF] transition-all"
                   ></textarea>

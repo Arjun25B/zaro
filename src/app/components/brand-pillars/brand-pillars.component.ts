@@ -30,7 +30,7 @@ export interface PillarCard {
     <!-- Outer Scroll Track (Controls scroll pacing: 340vh) -->
     <div
       #scrollContainer
-      class="relative h-[340vh] bg-white"
+      class="relative h-[200vh] bg-white"
     >
       <!-- Sticky Viewport Locked to Screen while Scrolling Down -->
       <section
@@ -374,7 +374,7 @@ export class BrandPillarsComponent implements AfterViewInit, OnDestroy {
 
       const diff = this.targetTranslateX - this.currentTranslateX;
       if (Math.abs(diff) > 0.05) {
-        this.currentTranslateX += diff * 0.085;
+        this.currentTranslateX += diff * 0.12;
 
 
         if (this.maxTranslate > 0) {
@@ -415,7 +415,7 @@ export class BrandPillarsComponent implements AfterViewInit, OnDestroy {
     if (maxScrollDistance <= 0) return;
 
     const rawProgress = Math.max(0, Math.min(scrolledDistance / maxScrollDistance, 1));
-    const travelProgress = Math.min(1, rawProgress / 0.82);
+    const travelProgress = rawProgress;
 
     const lastCard = track.children[this.pillars.length - 1] as HTMLElement;
     this.maxTranslate = 0;

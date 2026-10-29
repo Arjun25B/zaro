@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ShapeGridComponent } from '../shape-grid/shape-grid.component';
 
 export interface DeploymentSector {
   id: string;
@@ -15,10 +14,10 @@ export interface DeploymentSector {
 @Component({
   selector: 'app-why-choose',
   standalone: true,
-  imports: [CommonModule, ShapeGridComponent],
+  imports: [CommonModule],
   template: `
     <section id="why" class="relative bg-[#051129] py-20 text-white border-t border-white/10 overflow-hidden">
-      <!-- Ambient Radial Glow Orbs like Hero Section -->
+      <!-- Ambient Radial Glow Orbs -->
       <div
         class="pointer-events-none absolute top-1/4 left-1/4 -translate-x-1/2 w-[550px] h-[550px] rounded-full bg-[#0070F3]/15 blur-[130px] will-change-transform"
         aria-hidden="true"
@@ -28,24 +27,18 @@ export interface DeploymentSector {
         aria-hidden="true"
       ></div>
 
-      <!-- Perspective ShapeGrid Interactive Canvas Background (Low Opacity & Hero Palette) -->
-      <div class="absolute inset-0 pointer-events-none z-0 opacity-25">
-        <app-shape-grid
-          shape="square"
-          direction="right"
-          lineColor="rgba(0, 112, 243, 0.28)"
-          hoverColor="#00D2FF"
-          hoverFillColor="#0070F3"
-          [fillOpacity]="0.3"
-          [cellSize]="48"
-          [speed]="0.35"
-          [tiltX]="0"
-          [tiltY]="-18"
-          [rainbow]="false"
-          [radius]="1.4"
-          [glow]="0.4"
-        />
-      </div>
+      <!-- Subtle Cyber Matrix Blueprint Grid (Zero JS/Canvas GPU Overhead, Pure CSS) -->
+      <div
+        class="pointer-events-none absolute inset-0 opacity-[0.12]"
+        style="background-image: linear-gradient(to right, rgba(0, 112, 243, 0.22) 1px, transparent 1px), linear-gradient(to bottom, rgba(0, 112, 243, 0.22) 1px, transparent 1px); background-size: 52px 52px;"
+        aria-hidden="true"
+      ></div>
+      <!-- Soft Radial Vignette for Seamless Edge Blending -->
+      <div
+        class="pointer-events-none absolute inset-0"
+        style="background: radial-gradient(circle at 50% 50%, transparent 35%, #051129 95%);"
+        aria-hidden="true"
+      ></div>
 
       <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-start">
@@ -99,25 +92,24 @@ export interface DeploymentSector {
               <span class="text-xs font-mono font-bold uppercase tracking-widest text-slate-400">
                 FEATURED DEPLOYMENTS
               </span>
-              <h3 class="font-display text-2xl font-bold text-white mt-1">
-                One Platform. Multiple Mission-Critical Industries.
-              </h3>
+              <p class="text-xs text-slate-400 mt-0.5">
+                Pre-calibrated edge nodes deployed across 30+ enterprise verticals globally.
+              </p>
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 pt-2">
-              @for (sector of deploymentSectors; track sector.title) {
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-3.5 sm:gap-4">
+              @for (sector of deploymentSectors; track sector.id) {
                 @if (sector.isHubCard) {
-                  <!-- More Industries Hub Card -->
+                  <!-- 6th Special Hub Card (All 25+ More) -->
                   <a
                     href="/#industries"
-                    class="aspect-[4/3] rounded-xl bg-[#071838] border border-white/10 p-5 flex flex-col justify-between hover:border-[#00D2FF]/60 hover:bg-[#0B214A] transition-all group shadow-md"
+                    class="relative aspect-[4/3] rounded-xl p-4 flex flex-col justify-between border border-[#0070F3]/60 bg-gradient-to-br from-[#0B214A] to-[#071838] group cursor-pointer hover:border-[#00D2FF] hover:shadow-xl transition-all duration-300"
                   >
                     <div class="w-9 h-9 rounded-lg bg-white/10 flex items-center justify-center text-[#00D2FF] group-hover:scale-110 transition-transform">
                       <svg class="w-5 h-5 fill-none stroke-current stroke-2" viewBox="0 0 24 24">
-                        <rect x="3" y="3" width="7" height="7" rx="1" />
-                        <rect x="14" y="3" width="7" height="7" rx="1" />
-                        <rect x="14" y="14" width="7" height="7" rx="1" />
-                        <rect x="3" y="14" width="7" height="7" rx="1" />
+                        <circle cx="12" cy="12" r="1" />
+                        <circle cx="19" cy="12" r="1" />
+                        <circle cx="5" cy="12" r="1" />
                       </svg>
                     </div>
 
@@ -181,17 +173,14 @@ export interface DeploymentSector {
                             <path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z" />
                             <path d="M6 12H4a2 2 0 0 0-2 2v8h4" />
                             <path d="M18 9h2a2 2 0 0 1 2 2v11h-4" />
-                            <path d="M10 6h4" />
-                            <path d="M10 10h4" />
-                            <path d="M10 14h4" />
                           </svg>
                         } @else if (sector.icon === 'truck') {
                           <svg class="w-4 h-4 fill-none stroke-current stroke-2" viewBox="0 0 24 24">
                             <path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2" />
                             <path d="M15 18H9" />
-                            <path d="M19 18h2a1 1 0 0 0 1-1v-5l-3-4h-5v10Z" />
-                            <circle cx="7" cy="18" r="2" />
+                            <path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.62l-3.48-4.35A1 1 0 0 0 17.52 8H14v10" />
                             <circle cx="17" cy="18" r="2" />
+                            <circle cx="7" cy="18" r="2" />
                           </svg>
                         }
                       </div>
@@ -229,42 +218,42 @@ export class WhyChooseComponent {
       desc: 'Eliminate siloed point-to-point spaghetti code with standard GraphQL & event meshes.',
     },
     {
-      title: 'Centralize operational telemetry & data',
-      desc: 'Real-time visibility across physical devices, ERP tables, and third-party SaaS.',
+      title: 'Transform raw data into real-time action',
+      desc: 'High-frequency telemetry feeds converted into actionable executive & operational dashboards.',
     },
     {
-      title: 'Deploy hardened, sovereign cloud infrastructure',
-      desc: 'Multi-cloud Kubernetes clusters with air-gapped compliance and sub-10ms response.',
+      title: 'Deploy on sovereign cloud or bare metal',
+      desc: 'Run multi-region cloud or air-gapped sovereign setups matching compliance laws.',
     },
     {
-      title: 'Embed production-ready private AI models',
-      desc: 'Zero dependency on public LLMs; guaranteed data privacy and auditable deterministic outputs.',
+      title: 'Scale operations without hiring overhead',
+      desc: 'Empower existing personnel with autonomous cognitive agents that handle routine logistics.',
     },
   ];
 
   deploymentSectors: DeploymentSector[] = [
     {
       id: 'aviation',
-      title: 'Aviation & Aerospace',
-      tag: 'Terminal Operations',
+      title: 'Aviation & Terminals',
+      tag: 'Flight Readiness',
       icon: 'plane',
-      bgGradient: 'from-sky-900 to-slate-900',
+      bgGradient: 'from-blue-900 to-indigo-950',
       image: 'https://images.unsplash.com/photo-1542296332-2e4473faf563?auto=format&fit=crop&w=600&q=80',
     },
     {
       id: 'manufacturing',
-      title: 'Advanced Manufacturing',
-      tag: 'Industrial IoT',
+      title: 'Smart Industry & SCADA',
+      tag: 'Production Telemetry',
       icon: 'factory',
-      bgGradient: 'from-blue-900 to-slate-900',
+      bgGradient: 'from-slate-900 to-blue-950',
       image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=600&q=80',
     },
     {
       id: 'healthcare',
-      title: 'Healthcare Networks',
-      tag: 'Clinical Telemetry',
+      title: 'Hospital & Healthcare',
+      tag: 'Diagnostic Pipelines',
       icon: 'heart',
-      bgGradient: 'from-teal-900 to-slate-900',
+      bgGradient: 'from-teal-950 to-slate-900',
       image: 'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=600&q=80',
     },
     {
@@ -273,7 +262,6 @@ export class WhyChooseComponent {
       tag: 'Grid Monitoring',
       icon: 'city',
       bgGradient: 'from-blue-950 to-slate-900',
-      // High-resolution reliable smart city skyline
       image: 'https://images.unsplash.com/photo-1519501025264-65ba15a82390?auto=format&fit=crop&w=600&q=80',
     },
     {
@@ -297,7 +285,6 @@ export class WhyChooseComponent {
   handleImageError(event: Event) {
     const img = event.target as HTMLImageElement;
     if (img) {
-      // Hide broken image so the rich fallback gradient and icon are displayed seamlessly
       img.style.display = 'none';
     }
   }

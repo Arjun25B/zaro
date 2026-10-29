@@ -30,7 +30,7 @@ export interface PillarCard {
     <!-- Outer Scroll Track: Paced for velvety smooth 60fps card reveal -->
     <div
       #scrollContainer
-      class="relative h-[250vh] bg-white"
+      class="relative h-[200vh] sm:h-[220vh] md:h-[250vh] bg-white"
     >
       <!-- Sticky Viewport: Locks cleanly to viewport while user scrolls vertically -->
       <section

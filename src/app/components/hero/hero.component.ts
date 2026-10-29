@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal, OnInit, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ShapeGridComponent } from '../shape-grid/shape-grid.component';
 
@@ -21,23 +21,38 @@ import { ShapeGridComponent } from '../shape-grid/shape-grid.component';
         aria-hidden="true"
       ></div>
 
-      <!-- Interactive Perspective ShapeGrid Canvas Background -->
-      <div class="absolute inset-0 z-0 pointer-events-none opacity-65">
-        <app-shape-grid
-          shape="square"
-          direction="right"
-          lineColor="rgba(0, 112, 243, 0.28)"
-          hoverColor="#00D2FF"
-          hoverFillColor="#0070F3"
-          [fillOpacity]="0.3"
-          [cellSize]="48"
-          [speed]="0.35"
-          [tiltX]="0"
-          [tiltY]="-18"
-          [rainbow]="false"
-          [radius]="1.4"
-          [glow]="0.45"
+      <!-- Desktop PC: Interactive Perspective ShapeGrid Canvas Background (>= 768px) -->
+      @if (!isMobile()) {
+        <div class="hidden md:block absolute inset-0 z-0 pointer-events-none opacity-65">
+          <app-shape-grid
+            shape="square"
+            direction="right"
+            lineColor="rgba(0, 112, 243, 0.28)"
+            hoverColor="#00D2FF"
+            hoverFillColor="#0070F3"
+            [fillOpacity]="0.3"
+            [cellSize]="48"
+            [speed]="0.35"
+            [tiltX]="0"
+            [tiltY]="-18"
+            [rainbow]="false"
+            [radius]="1.4"
+            [glow]="0.45"
+          />
+        </div>
+      }
+
+      <!-- Mobile View: Ultra-Fast Lightweight Unsplash Glowing Blue Wave Background (< 768px, Zero Canvas Lag) -->
+      <div class="md:hidden absolute inset-0 z-0 pointer-events-none overflow-hidden">
+        <img
+          [src]="mobileBgUrl"
+          alt="Abstract blue glowing dots forming wave patterns"
+          loading="eager"
+          decoding="async"
+          class="w-full h-full object-cover object-center opacity-45 mix-blend-screen scale-105 transition-opacity duration-700"
+          (error)="handleMobileBgError($event)"
         />
+        <div class="absolute inset-0 bg-gradient-to-b from-[#051129]/80 via-transparent to-[#051129] pointer-events-none"></div>
       </div>
 
       <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full z-10">
@@ -58,14 +73,14 @@ import { ShapeGridComponent } from '../shape-grid/shape-grid.component';
             <!-- Fluid H1 Headline -->
             <h1 class="font-display text-4xl sm:text-5xl lg:text-[56px] font-extrabold tracking-tight leading-[1.08] text-white">
               AI-Powered Innovation.
-              <span class="block mt-1 text-transparent bg-clip-text bg-gradient-to-r from-[#0070F3] via-[#0091FF] to-[#00D2FF]">
+              <span class="block text-gradient mt-1">
                 Cloud-Driven Possibilities.
               </span>
             </h1>
 
-            <!-- Lead Narrative -->
-            <p class="text-base sm:text-lg text-slate-300 leading-relaxed max-w-xl font-normal">
-              Give your enterprise AI-powered intelligence with <strong class="text-white font-semibold">Corezan</strong> — then connect every system, team, and process on the <strong class="text-white font-semibold">ZARO</strong> unified cloud platform.
+            <!-- Subtitle -->
+            <p class="text-base sm:text-lg text-slate-300 max-w-xl font-normal leading-relaxed">
+              We engineer custom enterprise AI models with <strong class="text-white font-semibold">Corezan</strong> and connect your entire business operational lifecycle through the unified <strong class="text-white font-semibold">ZARO</strong> cloud fabric.
             </p>
 
             <!-- CTAs -->
@@ -107,7 +122,7 @@ import { ShapeGridComponent } from '../shape-grid/shape-grid.component';
 
           <!-- Right Column (6 cols): Orbital Network Diagram -->
           <div class="lg:col-span-6 flex items-center justify-center relative">
-            <div class="relative w-full max-w-[460px] aspect-square flex items-center justify-center">
+            <div class="relative w-full max-w-[340px] sm:max-w-[440px] lg:max-w-[460px] aspect-square flex items-center justify-center">
               <!-- Outer Dashed Orbit Track -->
               <div
                 class="absolute inset-4 rounded-full border border-dashed border-[#00D2FF]/20 animate-spin-slow pointer-events-none"
@@ -120,11 +135,8 @@ import { ShapeGridComponent } from '../shape-grid/shape-grid.component';
                 aria-hidden="true"
               ></div>
 
-              <!-- Radial glow directly behind center hub -->
-              <div class="absolute w-44 h-44 rounded-full bg-[#00D2FF]/20 blur-2xl pointer-events-none"></div>
-
-              <!-- Central ZARO Hub -->
-              <div class="relative z-20 w-36 h-36 rounded-full bg-[#0B214A] border-2 border-[#00D2FF] shadow-[0_0_35px_rgba(0,210,255,0.35)] flex flex-col items-center justify-center p-4 transition-transform hover:scale-105 cursor-pointer">
+              <!-- Center Hub: ZARO Core -->
+              <div class="relative z-20 flex flex-col items-center justify-center w-28 h-28 sm:w-32 sm:h-32 rounded-3xl bg-gradient-to-br from-[#0B214A] to-[#071838] border-2 border-[#00D2FF]/60 shadow-[0_0_50px_rgba(0,210,255,0.25)] backdrop-blur-xl">
                 <img
                   src="/zaro-logo.png"
                   alt="ZARO Core Hub"
@@ -178,14 +190,12 @@ import { ShapeGridComponent } from '../shape-grid/shape-grid.component';
               <div class="absolute bottom-2 right-2 z-10 flex flex-col items-center text-center p-3 rounded-2xl bg-[#071838]/90 border border-[#2E2D62] shadow-lg backdrop-blur-md transition-transform hover:translate-y-1">
                 <div class="p-2.5 rounded-xl bg-indigo-500/20 text-indigo-300 mb-1.5">
                   <svg class="w-5 h-5 fill-none stroke-current stroke-2" viewBox="0 0 24 24">
-                    <rect x="3" y="3" width="7" height="7" />
-                    <rect x="14" y="3" width="7" height="7" />
-                    <rect x="14" y="14" width="7" height="7" />
-                    <rect x="3" y="14" width="7" height="7" />
+                    <rect width="20" height="14" x="2" y="7" rx="2" />
+                    <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
                   </svg>
                 </div>
-                <span class="text-xs font-semibold text-white">30+ Verticals</span>
-                <span class="text-[10px] text-slate-400">Certified Modules</span>
+                <span class="text-xs font-semibold text-white">Enterprise Apps</span>
+                <span class="text-[10px] text-slate-400">Connected Ops</span>
               </div>
 
               <!-- Connecting Conduits -->
@@ -202,4 +212,32 @@ import { ShapeGridComponent } from '../shape-grid/shape-grid.component';
     </section>
   `,
 })
-export class HeroComponent {}
+export class HeroComponent implements OnInit {
+  isMobile = signal(false);
+
+  // Unsplash abstract blue glowing dots forming wave patterns (photo r5lbaK3fDaM)
+  mobileBgUrl = 'https://images.unsplash.com/photo-1707920199992-0692ec79b29e?auto=format&fit=crop&w=1080&q=75';
+
+  ngOnInit() {
+    this.checkMobile();
+  }
+
+  @HostListener('window:resize')
+  onResize() {
+    this.checkMobile();
+  }
+
+  private checkMobile() {
+    if (typeof window !== 'undefined') {
+      this.isMobile.set(window.innerWidth < 768);
+    }
+  }
+
+  handleMobileBgError(event: Event) {
+    const img = event.target as HTMLImageElement;
+    if (img && !img.dataset['retried']) {
+      img.dataset['retried'] = 'true';
+      img.src = 'https://unsplash.com/photos/r5lbaK3fDaM/download?w=1080&q=75';
+    }
+  }
+}

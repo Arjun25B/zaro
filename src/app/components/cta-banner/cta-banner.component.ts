@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-cta-banner',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   template: `
     <section class="bg-[#071838] py-14 px-4 sm:px-6 lg:px-8 border-y border-[#1E3765]/80 relative overflow-hidden">
       <!-- Background glow strip -->
@@ -28,7 +29,8 @@ import { CommonModule } from '@angular/common';
 
         <div class="flex-shrink-0">
           <a
-            href="#contact"
+            [routerLink]="['/']"
+            fragment="contact"
             class="h-11 px-6 rounded-xl bg-[#0070F3] hover:bg-[#005BD0] text-white font-semibold text-sm inline-flex items-center justify-center gap-2 shadow-md shadow-[#0070F3]/25 transition-all group"
           >
             <span>Get in Touch with Founders</span>

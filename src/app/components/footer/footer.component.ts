@@ -12,7 +12,12 @@ import { RouterModule } from '@angular/router';
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8 pb-12 border-b border-white/10">
           <!-- Brand Column (cols 1-4) -->
           <div class="lg:col-span-4 space-y-6">
-            <div class="flex items-center gap-3">
+            <!-- Clickable Brand Logo Lockup -->
+            <a
+              routerLink="/"
+              class="inline-flex items-center gap-3 transition-opacity hover:opacity-90 cursor-pointer"
+              aria-label="Corezan & ZARO Enterprise Platform - Home"
+            >
               <img
                 src="/corezan-logo.png"
                 alt="Corezan AI"
@@ -24,7 +29,7 @@ import { RouterModule } from '@angular/router';
                 alt="ZARO Cloud"
                 class="h-8 w-auto object-contain"
               />
-            </div>
+            </a>
 
             <p class="text-sm text-slate-400 leading-relaxed max-w-sm">
               Connecting cognitive enterprise intelligence with resilient cloud operational systems. Engineered for high-throughput, mission-critical operations globally.
@@ -35,7 +40,7 @@ import { RouterModule } from '@angular/router';
               <a
                 href="https://linkedin.com"
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 class="p-2.5 rounded-full bg-white/5 border border-white/10 text-slate-400 hover:text-white hover:bg-white/10 hover:border-[#00D2FF]/40 transition-all"
                 aria-label="LinkedIn"
               >
@@ -48,7 +53,7 @@ import { RouterModule } from '@angular/router';
               <a
                 href="https://twitter.com"
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 class="p-2.5 rounded-full bg-white/5 border border-white/10 text-slate-400 hover:text-white hover:bg-white/10 hover:border-[#00D2FF]/40 transition-all"
                 aria-label="X (formerly Twitter)"
               >
@@ -61,7 +66,7 @@ import { RouterModule } from '@angular/router';
               <a
                 href="https://facebook.com"
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 class="p-2.5 rounded-full bg-white/5 border border-white/10 text-slate-400 hover:text-white hover:bg-white/10 hover:border-[#00D2FF]/40 transition-all"
                 aria-label="Facebook"
               >
@@ -70,7 +75,7 @@ import { RouterModule } from '@angular/router';
                 </svg>
               </a>
 
-              <!-- Globe -->
+              <!-- Global Mesh Indicator -->
               <a
                 routerLink="/"
                 class="p-2.5 rounded-full bg-white/5 border border-white/10 text-slate-400 hover:text-white hover:bg-white/10 hover:border-[#00D2FF]/40 transition-all"
@@ -85,36 +90,78 @@ import { RouterModule } from '@angular/router';
             </div>
           </div>
 
-          <!-- Quick Links Column (cols 5-6) -->
+          <!-- Navigation Links Column (cols 5-6) -->
           <div class="lg:col-span-2 space-y-4">
             <h4 class="font-display text-xs font-bold uppercase tracking-wider text-white">Navigation</h4>
             <ul class="space-y-2.5 text-sm">
-              <li><a routerLink="/" class="hover:text-[#00D2FF] transition-colors">Overview</a></li>
-              <li><a href="/#corezan" class="hover:text-[#00D2FF] transition-colors">Corezan AI Solutions</a></li>
-              <li><a href="/#zaro" class="hover:text-[#00D2FF] transition-colors">ZARO Platform</a></li>
-              <li><a href="/#industries" class="hover:text-[#00D2FF] transition-colors">Industry Directory</a></li>
-              <li><a href="/#why" class="hover:text-[#00D2FF] transition-colors">Why Corezan & ZARO</a></li>
-              <li><a routerLink="/careers" class="hover:text-[#00D2FF] transition-colors text-white font-medium">Careers <span class="text-[10px] ml-1 px-1.5 py-0.5 rounded bg-[#0070F3]/30 text-[#00D2FF]">We're Hiring</span></a></li>
-              <li><a href="/#contact" class="hover:text-[#00D2FF] transition-colors">Schedule Consultation</a></li>
+              <li>
+                <a routerLink="/" class="text-slate-400 hover:text-[#00D2FF] transition-colors">Overview</a>
+              </li>
+              <li>
+                <a [routerLink]="['/']" fragment="corezan" class="text-slate-400 hover:text-[#00D2FF] transition-colors">Corezan AI Solutions</a>
+              </li>
+              <li>
+                <a [routerLink]="['/']" fragment="zaro" class="text-slate-400 hover:text-[#00D2FF] transition-colors">ZARO Platform</a>
+              </li>
+              <li>
+                <a [routerLink]="['/']" fragment="industries" class="text-slate-400 hover:text-[#00D2FF] transition-colors">Industry Directory</a>
+              </li>
+              <li>
+                <a [routerLink]="['/']" fragment="why" class="text-slate-400 hover:text-[#00D2FF] transition-colors">Why Corezan & ZARO</a>
+              </li>
+              <li>
+                <a routerLink="/careers" class="hover:text-[#00D2FF] transition-colors text-white font-medium flex items-center gap-1.5">
+                  <span>Careers</span>
+                  <span class="text-[10px] px-1.5 py-0.5 rounded bg-[#0070F3]/30 text-[#00D2FF] font-mono">Hiring</span>
+                </a>
+              </li>
+              <li>
+                <a [routerLink]="['/']" fragment="contact" class="text-slate-400 hover:text-[#00D2FF] transition-colors">Schedule Consultation</a>
+              </li>
             </ul>
           </div>
 
-          <!-- Platform Column (cols 7-9) -->
+          <!-- Platform Suite Column (cols 7-9) -->
           <div class="lg:col-span-3 space-y-4">
             <h4 class="font-display text-xs font-bold uppercase tracking-wider text-white">Platform Suite</h4>
             <ul class="space-y-2.5 text-sm">
-              <li><a href="/#zaro" class="hover:text-[#00D2FF] transition-colors flex items-center justify-between">ZARO Business ERP ↗</a></li>
-              <li><a href="/#zaro" class="hover:text-[#00D2FF] transition-colors flex items-center justify-between">ZARO Virtual World ↗</a></li>
-              <li><a href="/#zaro" class="hover:text-[#00D2FF] transition-colors flex items-center justify-between">High-Throughput API Mesh ↗</a></li>
-              <li><a href="/#corezan" class="hover:text-[#00D2FF] transition-colors flex items-center justify-between">Private LLM Infrastructure ↗</a></li>
-              <li><a href="/#corezan" class="hover:text-[#00D2FF] transition-colors flex items-center justify-between">Cognitive Agent Swarms ↗</a></li>
+              <li>
+                <a [routerLink]="['/']" fragment="zaro" class="text-slate-400 hover:text-[#00D2FF] transition-colors flex items-center justify-between group">
+                  <span>ZARO Business ERP</span>
+                  <span class="text-xs text-slate-500 group-hover:text-[#00D2FF] group-hover:translate-x-0.5 transition-all">↗</span>
+                </a>
+              </li>
+              <li>
+                <a [routerLink]="['/']" fragment="zaro" class="text-slate-400 hover:text-[#00D2FF] transition-colors flex items-center justify-between group">
+                  <span>ZARO Virtual World</span>
+                  <span class="text-xs text-slate-500 group-hover:text-[#00D2FF] group-hover:translate-x-0.5 transition-all">↗</span>
+                </a>
+              </li>
+              <li>
+                <a [routerLink]="['/']" fragment="zaro" class="text-slate-400 hover:text-[#00D2FF] transition-colors flex items-center justify-between group">
+                  <span>High-Throughput API Mesh</span>
+                  <span class="text-xs text-slate-500 group-hover:text-[#00D2FF] group-hover:translate-x-0.5 transition-all">↗</span>
+                </a>
+              </li>
+              <li>
+                <a [routerLink]="['/']" fragment="corezan" class="text-slate-400 hover:text-[#00D2FF] transition-colors flex items-center justify-between group">
+                  <span>Private LLM Infrastructure</span>
+                  <span class="text-xs text-slate-500 group-hover:text-[#00D2FF] group-hover:translate-x-0.5 transition-all">↗</span>
+                </a>
+              </li>
+              <li>
+                <a [routerLink]="['/']" fragment="corezan" class="text-slate-400 hover:text-[#00D2FF] transition-colors flex items-center justify-between group">
+                  <span>Cognitive Agent Swarms</span>
+                  <span class="text-xs text-slate-500 group-hover:text-[#00D2FF] group-hover:translate-x-0.5 transition-all">↗</span>
+                </a>
+              </li>
             </ul>
           </div>
 
           <!-- Enterprise Contact & Support (cols 10-12) -->
           <div class="lg:col-span-3 space-y-4">
             <h4 class="font-display text-xs font-bold uppercase tracking-wider text-white">Direct Inquiries</h4>
-            <div class="space-y-3 text-sm text-slate-400">
+            <div class="space-y-3.5 text-sm text-slate-400">
               <div class="flex items-start gap-2.5">
                 <svg class="w-4 h-4 text-[#00D2FF] shrink-0 mt-0.5 fill-none stroke-current stroke-2" viewBox="0 0 24 24">
                   <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
@@ -127,15 +174,19 @@ import { RouterModule } from '@angular/router';
                   <rect width="20" height="16" x="2" y="4" rx="2" />
                   <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
                 </svg>
-                <a href="mailto:info@corezan.ai" class="hover:text-white transition-colors">info@corezan.ai</a>
+                <a href="mailto:info@corezan.ai" class="hover:text-white transition-colors underline-offset-2 hover:underline">
+                  info&#64;corezan.ai
+                </a>
               </div>
               <div class="flex items-center gap-2.5">
                 <svg class="w-4 h-4 text-[#00D2FF] shrink-0 fill-none stroke-current stroke-2" viewBox="0 0 24 24">
                   <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
                 </svg>
-                <a href="tel:+919940397098" class="hover:text-white transition-colors">+91 99403 97098</a>
+                <a href="tel:+919940397098" class="hover:text-white transition-colors font-mono">
+                  +91 99403 97098
+                </a>
               </div>
-              <div class="pt-2">
+              <div class="pt-1.5">
                 <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
                   <span class="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
                   Global 24/7 Enterprise Tier
@@ -150,10 +201,10 @@ import { RouterModule } from '@angular/router';
           <div>
             © {{ currentYear }} Corezan Technologies & ZARO Cloud Platform. All rights reserved.
           </div>
-          <div class="flex items-center gap-6">
+          <div class="flex flex-wrap items-center gap-6">
             <span class="text-slate-400 font-display font-medium">Intelligence. Integration. Innovation.</span>
-            <span>Privacy Policy</span>
-            <span>Terms of Service</span>
+            <a [routerLink]="['/']" fragment="contact" class="hover:text-slate-300 transition-colors">Privacy Policy</a>
+            <a [routerLink]="['/']" fragment="contact" class="hover:text-slate-300 transition-colors">Terms of Service</a>
           </div>
         </div>
       </div>
